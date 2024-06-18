@@ -1,0 +1,353 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+    --black:rgba(22,0,0,1);
+    --black75:rgba(22,0,0,0.75);
+    --black50:rgba(22,0,0,0.5);
+    --black25:rgba(22,0,0,0.25);
+    --black10:rgba(22,0,0,0.1);
+    --primaryColor:#d00;
+    --secondaryColor:#d99;
+    --gradient: linear-gradient(90deg, #ff5555,#5555ff);
+    
+}
+
+header {
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    display: flex;
+    align-items: center;
+    padding: 8px 48px ;
+    background: #fff;
+    z-index: 99;
+
+}
+
+a {
+    text-decoration: none;
+}
+
+header .logo a img {
+    width: 150px;
+    height: 100px;
+}
+
+@media (max-width:520px){
+    header .logo a img {
+        width: 100px;
+        height: 50px;
+    }
+}
+
+@media (max-height:520px){
+    header .logo a img {
+        width: 100px;
+        height: 50px;
+    }
+}
+
+.menu-container {
+    position: fixed;
+    bottom: 60px;
+    right: 60px;
+    z-index: 50;
+    
+
+}
+
+.menu-container .menu {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.menu-container .menu .toggle {
+    position: relative;
+    background-color: #fff;
+    width: 100px;
+    height: 100px;
+    border: 1px solid rgba(255,255, 255,0.1);
+    border-radius: 50%;
+    backdrop-filter: blur(10px);
+    box-shadow: 0 25px 15px rgba(0, 0, 0, 0.25),0 25px 20px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 3em;
+    color: #555;
+    z-index: 99;
+}
+
+.menu-container .menu .toggle ion-icon {
+    position: absolute;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.menu-container .menu .toggle ion-icon:nth-child(1) {
+    opacity: 1;
+    transform: rotate(360deg);
+}
+
+.menu-container .menu .toggle ion-icon:nth-child(2) {
+    opacity: 0;
+    transform: rotate(0deg);
+}
+
+.menu-container .menu.active .toggle ion-icon:nth-child(1) {
+    opacity: 0;
+    transform: rotate(0deg);
+}
+
+.menu-container .menu.active .toggle ion-icon:nth-child(2) {
+    opacity: 1;
+    transform: rotate(360deg);
+}
+
+.menu-container .menu li {
+    position: absolute;
+    left: 0;
+    list-style: none;
+    transform-origin: 110px;
+    transition: 0.5s;
+    transform: rotate(calc(360deg / 3 * var(--i)));
+    scale: 0;
+    border-radius: 50%;
+    z-index: 1;
+    overflow: hidden;
+    transition-delay: calc(0.05s * var(--i));
+    cursor: pointer;
+}
+
+.menu-container .menu li::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -30px;
+    width: 20px;
+    height: 100%;
+    background: #fff;
+    z-index: 10;
+    transform: skewX(325deg) translateX(0);
+    box-shadow: -50px 0 0 #fff5;
+    transition: 0.5s;
+}
+
+.menu-container .menu li:hover::before {
+    transform: rotateX(325deg) translateX(180px);
+    box-shadow: -5px 0 0 #fff5;
+}
+
+.menu-container .menu.active li {
+    scale: 1;
+}
+
+.menu-container .menu li ion-icon {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 65px;
+    height: 65px;
+    background: var(--clr);
+    border-radius: 50%;
+    padding: 8px;
+    transform: rotate(calc(360deg / -3 * var(--i)));
+}
+
+@media (max-width:600px){
+    .menu-container {
+        bottom: 0px;
+        right: 0px;
+    }
+}
+
+@media (max-height:600px){
+    .menu-container {
+        bottom: 0px;
+        right: 0px;
+    }
+}
+
+
+main section#portfolio {
+    padding: 176px 0;
+    width: 100vw;
+    min-height: 100vh;
+    background:rgba(210,210, 210, 0.8);
+}
+
+@media (max-width:600px){
+    main section#portfolio {
+        padding: 96px 0;
+    }    
+}
+@media (max-height:600px){
+    main section#portfolio {
+        padding: 96px 0;
+    }    
+}
+
+main section#portfolio .main-heading {
+    text-align: center;
+    text-transform: uppercase;
+    font-size: 40px;
+}
+
+
+main section#portfolio .category-btns {
+    width: fit-content;
+    padding: 8px 24px;
+    margin: 0 auto;
+    margin-top: 24px;
+    margin-bottom: 48px;
+}
+
+main section#portfolio .category-btns .category-btn {
+    font-size: 21px;
+    padding: 4px 8px;
+    margin: 0 4px;
+    text-transform: capitalize;
+    background-color: rgba(255,255, 255,0.8);
+    border:0;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(55, 55, 55, 0.8);
+    transition: 0.2s ease-in-out;
+}
+
+main section#portfolio .category-btns .category-btn.active {
+    background-color: #333;
+    color: rgba(255,255, 255,1);
+}
+
+main section#portfolio .category-btns .category-btn:hover {
+    transform: scale(1.1);
+}
+
+@media (max-width:520px){
+    main section#portfolio .category-btns .category-btn {
+        font-size: 16px;
+        padding: 4px;
+    }    
+}
+
+main section#portfolio .portfolio-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+main section#portfolio .portfolio-container .card {
+    width: 400px;
+    margin: 16px 8px;
+    background: rgba(240,240, 240,0.8);
+    padding: 16px;
+    border-radius: 8px;
+    font-size: 21px;
+
+}
+
+main section#portfolio .portfolio-container .card .visual {
+    width: 368px;
+    aspect-ratio: 16/9;
+    background-color: rgba(255,255, 255,1);
+    margin-bottom: 16px;
+}
+
+main section#portfolio .portfolio-container .card .visual > * {
+    width: 100%;
+    height: 100%;
+}
+
+main section#portfolio .portfolio-container .card .info > div {
+    margin: 8px;
+}
+
+main section#portfolio .portfolio-container .card .info .organisation span {
+    font-weight: 600;
+}
+
+@media (max-width:430px){
+    main section#portfolio .portfolio-container .card {
+        width: 90vw;
+        padding: 16px 5vw;
+        margin: 16px 0;
+        font-size: 18px;
+    }
+    
+    main section#portfolio .portfolio-container .card .visual{
+        width: 80vw;
+    }
+}
+
+main section.contact-us {
+    padding: 96px 0;
+    background: rgba(10,10, 10, 0.9);
+    color: #eee;
+    
+}
+
+main section.contact-us > h1 {
+    text-align: center;
+    text-transform: capitalize;
+    font-size: 40px;
+    margin-bottom:48px ;
+}
+
+main section.contact-us .contact-info {
+    width: 100%;
+    margin:0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+main section.contact-us .contact-info .visual {
+    width: 400px;
+    aspect-ratio: 16/9;
+    
+}
+
+main section.contact-us .contact-info .info-container {
+    width: 400px;
+    padding: 24px;
+}
+
+
+main section.contact-us .contact-info .info-container .info .icon {
+    display: inline-block;
+    margin:8px 8px 0 0 ;
+    
+}
+
+main section.contact-us .contact-info .info-container .info .icon ion-icon {
+    font-size: 21px;
+}
+
+main section.contact-us .contact-info .info-container .info .text {
+    font-size: 21px;
+}
+
+main section.contact-us .contact-info .info-container .social-links {
+    margin-top: 16px;
+
+    
+}
+
+main section.contact-us .contact-info .info-container .social-links .social-link {
+    display: inline-block;
+    margin: 0 16px;
+    color: #777;
+}
+
+main section.contact-us .contact-info .info-container .social-links .social-link ion-icon {
+    font-size: 21px;
+}
