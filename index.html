@@ -4,85 +4,122 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Thato The MC</title>
+    <!-- LINKING STYLESHEET STYLE.CSS -->
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <!-- HEADER -->
     <header>
+        <!-- LOGO CONTAINER -->
         <div class="logo">
+            <!-- HOME LINK -->
             <a href="#">
+                <!-- LOGO IMAGE -->
                 <img src="./images/IMG-20240311-WA0002-removebg-preview.png" alt="logo">
             </a>
         </div>
+        <!-- NAVBAR -->
         <nav class="navbar">
+            <!-- NAVBAR UNORDERED LIST -->
             <ul class="nav-list">
-                <li class="nav-item">
-                    <a href="#" class="nav-link" data-id="about-us">About US</a>
+                <!-- NAVBAR ITEMS AND THEIR LINKS -->
+                 <!-- ABOUT US LINK -->
+                <li class="nav-item"> 
+                    <a href="#" class="nav-link" data-id="about-us">About US</a> 
                 </li>
+                <!-- SERVICES LINK -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-id="services">Services</a>
+                    <a href="#" class="nav-link" data-id="services">Services</a> 
                 </li>
+                <!-- PORTFOLIO LINK -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-id="portfolio">Portfolio</a>
+                    <a href="#" class="nav-link" data-id="portfolio">Portfolio</a> 
                 </li>
+                <!-- TESTIMONIALS LINK -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-id="testimonials">Testimonials</a>
+                    <a href="#" class="nav-link" data-id="testimonials">Testimonials</a> 
                 </li>
+                <!-- CONTACT US LINK -->
                 <li class="nav-item">
-                    <a href="#" class="nav-link" data-id="contact-us">Contact US</a>
+                    <a href="#" class="nav-link" data-id="contact-us">Contact US</a> 
                 </li>
             </ul>
         </nav>
+        <!-- NAV TOGGLE -->
         <button class="toggle-btn">
             <ion-icon name="menu-outline"></ion-icon>
         </button>
     </header>
+
+    <!-- CHAT MENU -->
+    <!-- CHAT MENU CONTAINER --> 
     <div class="menu-container">
+        <!-- ACTUAL CHAT MENU -->
         <div class="menu">
-            <li style="--i:1;--clr:#f0f565;">
+            <!-- CHAT OPTIONS -->
+             <!-- EMAIL OPTION -->
+            <li style="--i:1;--clr:#f0f565;"> 
                 <ion-icon data-id="mail" name="mail-open-outline"></ion-icon>
             </li>
-            <li style="--i:2;--clr:#2242f2;">
+            <!-- CALL OPTION -->
+            <li style="--i:2;--clr:#2242f2;"> 
                 <ion-icon data-id = "call" name="call-outline"></ion-icon>
             </li>
-            <li style="--i:3;--clr:#22f265;">
+            <!-- WHATSAPP OPTION -->
+            <li style="--i:3;--clr:#22f265;"> 
                 <ion-icon data-id="whatsapp" name="logo-whatsapp"></ion-icon>
             </li>
+            <!-- CHAT MENU TOGGLE -->
             <div class="toggle">
                 <ion-icon name="chatbox-outline"></ion-icon>
                 <ion-icon name="close-outline"></ion-icon>
             </div>
         </div>
     </div>
+
+    <!-- MAIN SECTION -->
     <main>
+        <!-- HERO SECTION -->
         <section class="hero" id="hero">
+            <!-- HERO SECTION CONTAINER -->
             <div class="hero-container">
+                <!-- HEADLINE -->
                 <h1 class="headline">
                     Captivate Your Audience: <span class="heading-name">Thato The MC</span>, Premier Emcee Extraordinaire
                 </h1>
+                <!-- HERO PARAGRAPH -->
                 <p class="body-text">
                     Welcome to the electrifying world of Thato the MC, where every event is transformed into an unforgettable experience. As a seasoned emcee with a passion for captivating audiences, Thato The MC blends professionalism with charisma to elevate any occasion to new heights.
                 </p>
                
             </div>
         </section>
+        <!-- ABOUT US SECTION -->
         <section class="about-us" id="about-us">
+            <!-- ABOUT US HEADING -->
             <h1 class="about-heading">
                 About <span class="heading-name"> Thato The Emcee</span> 
             </h1>
+            <!-- ABOUT US INTRODUCTION -->
             <p>
                 Welcome to Thato The MC's world, where every event becomes an extraordinary affair. As a seasoned emcee, Thato The MC brings more than just words to the stage – he brings energy, passion, and an unparalleled ability to captivate any audience. With a blend of charisma and professionalism, Thato The MC turns moments into memories and occasions into unforgettable experiences. Get ready to discover the magic behind the mic and embark on a journey where every event shines brighter with Thato The MC at the helm.
             </p>
+            <!-- ABOUT US KEY HIGHLIGHTS CONTAINER -->
             <div class="highlights-container">
+                <!-- ABOUT US HIGHLIGHTS IMAGE CONTAINER -->
                 <div class="highlights-image-container">
                     <img src="./images/pexels-mikhail-nilov-8872475.jpg" alt="">
                 </div>
-
+                <!-- KEY HIGHLIGHTS -->
                 <div class="key-highlights">
                     <div class="key-highlights-container">
+                        <!--KEY HIGHLIGHTS HEADING-->
                         <h3>
                             Why Choose Thato The MC?
                         </h3>
+                        <!-- KEY HIGHLIGHTS LIST -->
                         <ul>
+                            <!-- DYNAMIC EMCEE -->
                             <li class="active">
                                 <div class="heading">
                                     <b>Dynamic Emcee</b>
@@ -97,6 +134,7 @@
                                     </p>
                                 </div>
                             </li>
+                            <!-- RADIO PERSONALITY -->
                             <li>
                                 <div class="heading">
                                     <b>Radio Personality</b>
@@ -111,6 +149,7 @@
                                     </p>  
                                 </div>
                             </li>
+                            <!-- EXPERIENCED REFEREE -->
                             <li>
                                 <div class="heading">
                                     <b>Experienced Referee</b>
@@ -125,6 +164,7 @@
                                     </p>
                                 </div>  
                             </li>
+                            <!-- VERSATILE TALENT -->
                             <li>
                                 <div class="heading">
                                     <b>Versatile Talent</b>
@@ -139,6 +179,7 @@
                                     </p>
                                 </div>
                             </li>
+                            <!-- CLIENT FOCUSED APPROACH -->
                             <li>
                                 <div class="heading">
                                     <b>Client-Focused Approach</b>
@@ -158,14 +199,19 @@
                 </div>
             </div>
         </section>
+        <!-- SERVICES SECTION -->
         <section class="services" id="services">
+            <!-- SERVICES SECTION HEADER -->
             <h1>
                 <span class="heading">Thato The MC</span>'s Services
             </h1>
+            <!-- SERVICES INTRODUCTION -->
             <p>
                 Discover the versatile talents of Thato The MC. From captivating emceeing to engaging radio hosting and expert soccer refereeing, Thato The MC offers a range of services to elevate your events and broadcasts.
             </p>
+            <!-- SERVICES OUTLINED -->
             <div class="key-highlights">
+                <!-- EMCEEING -->
                 <div class="highlight">
                     <div class="visual">
 
@@ -179,6 +225,7 @@
                         </p>
                     </div>
                 </div>
+                <!-- RADIO HOSTING -->
                 <div class="highlight">
                     <div class="visual">
 
@@ -192,6 +239,7 @@
                         </p>
                     </div>
                 </div>
+                <!-- SOCCER REFEREEING -->
                 <div class="highlight">
                     <div class="visual">
 
@@ -207,31 +255,42 @@
                 </div>
             </div>
         </section>
+        <!-- PORTFOLIO -->
         <section class="portfolio" id="portfolio">
+            <!-- PORTFOLIO HEADING -->
             <h1>Explore Our Portfolio</h1>
+            <!-- PORTFOLIO CONTAINER -->
             <div class="portfolio-container">
+                <!-- EMCEEING CARD -->
                 <div class="card">
                     <div class="thumbnail"></div>
                     <div class="caption"><span>emceeing</span></div>
                 </div>
+                <!-- RADIO HOSTING CARD -->
                 <div class="card">
                     <div class="thumbnail"></div>
                     <div class="caption"><span>radio hosting</span></div>
                 </div>
+                <!-- REFEREEING -->
                 <div class="card">
                     <div class="thumbnail"></div>
-                    <div class="caption"><span>referring</span></div>
+                    <div class="caption"><span>refereeing</span></div>
                 </div>   
             </div>
+            <!-- PORTFOLIO CTA -->
             <a href="./portfolio.html" class="cta">View Full Portfolio</a>
         </section>
+        <!-- TESIMONIALS -->
         <section class="testimonials" id="testimonials">
+            <!-- TESTIMONIALS HEADING -->
             <h1>
                 Client Testimonials
             </h1>
+            <!-- TESTIMONIALS INTRODUCTION -->
             <p>
                 At Thato The MC's, we take pride in delivering exceptional service and memorable experiences for our clients. Don't just take our word for it – hear what our satisfied clients have to say about their experiences working with us. Their feedback speaks volumes about the quality and dedication we bring to every event and project
             </p>
+            <!-- TESTIMONIALS CONTAINER -->
             <div class="testimonials-container">
                 <div class="cards">
                     <div class="card">
@@ -417,8 +476,11 @@
                 </div>
             </div>
         </section>
+        <!-- CONTACT US SECTION -->
         <section class="contact-us" id="contact-us">
+            <!-- CONACT US HEADING -->
             <h1>Get in touch</h1>
+            <!-- CONTACT US INFO, HARD PRINTED INFO LIKE CELL NO, EMAIL,WHATSAPP-->
             <div class="contact-info">
                 <div class="info-container">
                     <div class="info">
@@ -445,7 +507,7 @@
                             (+27)82 751 2160
                         </span>
                     </div>
-
+                    <!-- SOCIAL MEDIA HANDLES -->
                     <div class="social-links">
                         <a href="#" class="social-link">
                             <ion-icon name="logo-facebook"></ion-icon>
@@ -462,6 +524,9 @@
             </div>
         </section>
     </main>
+    <footer>
+        <p>&copy;<span id="copyright-year"></span> Thato The MC. All Rights Reserved </p>
+    </footer>
     <script src="./main.js"></script>
     <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
     <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>

@@ -4,7 +4,9 @@ const chatMenuIcons = chatMenu.querySelectorAll('li ion-icon')
 const windowWidth = window.innerWidth
 const categoryBtns = document.querySelectorAll('#portfolio > .category-btns .category-btn')
 const portfolioContainer = document.querySelector('#portfolio > .portfolio-container')
+const copyrightYear = document.getElementById('copyright-year')
 
+// PORTFOLIO ELEMENTS
 
 const portfolio = [
     {
@@ -77,9 +79,13 @@ const portfolio = [
     },
 ]
 
+// CHAT MENU TOGGLE FUNCTIONALITY
+
 chatMenuToggle.onclick = () => {
     chatMenu.classList.toggle('active')
 }
+
+//CHAT MENU OPTIONS CLICK FUNCTIONALITY
 
 chatMenuIcons.forEach(icon => {
     icon.addEventListener('click', e => {
@@ -101,10 +107,12 @@ chatMenuIcons.forEach(icon => {
 })
 
 
-
+// DISPLAYING PORTFOLIO ITEMS ON THE WINDOW
 window.addEventListener('DOMContentLoaded',() => {
     displayPortfolio(portfolio)
 })
+
+// PORTFOLIO CATEGORY BUTTONS FUNCTIONALITY
 
 categoryBtns.forEach(btn => {
     btn.addEventListener('click',e => {
@@ -127,6 +135,7 @@ categoryBtns.forEach(btn => {
     })
 })
 
+// DISPLAYING ITEMS ON THE SCREEN FUNCTION
 
 function displayPortfolio(port){
 
@@ -161,6 +170,13 @@ portfolioContainer.innerHTML = portfolioItems
 
 }
 
+// get current year
 
+const currentDate = new Date()
+const currentYear = currentDate.getFullYear()
+
+// set copyright year to current year
+
+copyrightYear.textContent = currentYear
 
 

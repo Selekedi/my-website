@@ -14,6 +14,8 @@
     
 }
 
+/* HEADER */
+
 header {
     position: fixed;
     top: 0;
@@ -35,6 +37,8 @@ header .logo a img {
     height: 100px;
 }
 
+/* MAX WIDTH 520PX FOR HEADER */
+
 @media (max-width:520px){
     header .logo a img {
         width: 100px;
@@ -42,12 +46,16 @@ header .logo a img {
     }
 }
 
+/* MAX HEIGHT 520PX FOR HEADER */
+
 @media (max-height:520px){
     header .logo a img {
         width: 100px;
         height: 50px;
     }
 }
+
+/* CHAT MENU */
 
 .menu-container {
     position: fixed;
@@ -162,12 +170,16 @@ header .logo a img {
     transform: rotate(calc(360deg / -3 * var(--i)));
 }
 
+/* MAX WIDTH 600PX FOR CHAT MENU */
+
 @media (max-width:600px){
     .menu-container {
         bottom: 0px;
         right: 0px;
     }
 }
+
+/* MAX HEIGHT 600PX FOR CHAT MENU */
 
 @media (max-height:600px){
     .menu-container {
@@ -176,6 +188,7 @@ header .logo a img {
     }
 }
 
+/* PORTFOLLIO SECTION */
 
 main section#portfolio {
     padding: 176px 0;
@@ -184,11 +197,16 @@ main section#portfolio {
     background:rgba(210,210, 210, 0.8);
 }
 
+/* MAX WIDTH 600PX FOR PORTFOLIO SECTION */
+
 @media (max-width:600px){
     main section#portfolio {
         padding: 96px 0;
     }    
 }
+
+/* MAX HEIGHT 600PX FOR PORTFOLIO SECTION */
+
 @media (max-height:600px){
     main section#portfolio {
         padding: 96px 0;
@@ -230,6 +248,8 @@ main section#portfolio .category-btns .category-btn.active {
 main section#portfolio .category-btns .category-btn:hover {
     transform: scale(1.1);
 }
+
+/* MAX WIDTH 520PX FOR CATEGORY BUTTONS */
 
 @media (max-width:520px){
     main section#portfolio .category-btns .category-btn {
@@ -274,6 +294,8 @@ main section#portfolio .portfolio-container .card .info .organisation span {
     font-weight: 600;
 }
 
+/* MAX WIDTH 430PX FOR PORTFOLIO CARD */
+
 @media (max-width:430px){
     main section#portfolio .portfolio-container .card {
         width: 90vw;
@@ -286,6 +308,8 @@ main section#portfolio .portfolio-container .card .info .organisation span {
         width: 80vw;
     }
 }
+
+/* CONTACT US SECTION */
 
 main section.contact-us {
     padding: 96px 0;
@@ -349,5 +373,14 @@ main section.contact-us .contact-info .info-container .social-links .social-link
 }
 
 main section.contact-us .contact-info .info-container .social-links .social-link ion-icon {
+    font-size: 21px;
+}
+
+/* FOOTER */
+
+footer {
+    text-align: center;
+    width: 100%;
+    padding:16px;
     font-size: 21px;
 }

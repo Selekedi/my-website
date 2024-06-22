@@ -1010,3 +1010,12 @@ main section.contact-us .contact-info .info-container .social-links .social-link
     font-size: 21px;
 }
 
+/* FOOTER */
+
+footer {
+    text-align: center;
+    width: 100%;
+    padding:16px;
+    font-size: 21px;
+}
+

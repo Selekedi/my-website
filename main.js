@@ -10,9 +10,10 @@ const chatMenuIcons = chatMenu.querySelectorAll('li ion-icon')
 const aboutUsAccordion = document.querySelector('main section.about-us .key-highlights-container ul')
 const aboutUsAccordionItems = aboutUsAccordion.querySelectorAll('li')
 const aboutUsAccordionBtns = aboutUsAccordion.querySelectorAll('li .heading .toggle-btn')
+const copyrightYear = document.getElementById('copyright-year')
 
 
-
+// NAV LINKS FUNCTIONALITY
 
 navLinks.forEach(link => {
     link.addEventListener('click',e => {
@@ -31,6 +32,8 @@ navLinks.forEach(link => {
     
 })
 
+// NAV TOGGLE FUNCTIONALITY
+
 navToggle.addEventListener('click',e => {
     const navListHeight = navList.getBoundingClientRect().height
     const navHeight = nav.getBoundingClientRect().height
@@ -43,6 +46,7 @@ navToggle.addEventListener('click',e => {
     
 })
 
+// CHAT MENU OPTIONS CLICKED FUNCTIONALITY
 
 chatMenuIcons.forEach(icon => {
     icon.addEventListener('click', e => {
@@ -63,10 +67,13 @@ chatMenuIcons.forEach(icon => {
     })
 })
 
+// CHAT MENU TOGGLE FUNCTIONALITY
 
 chatMenuToggle.onclick = () => {
     chatMenu.classList.toggle('active')
 }
+
+// ABOUT US ACCORDION FUNCTIONALITY
 
 aboutUsAccordionBtns.forEach(btn => {
     btn.addEventListener('click',e => {
@@ -82,6 +89,11 @@ aboutUsAccordionBtns.forEach(btn => {
     })
 })
 
-console.log(window.innerWidth)
-console.log(window.innerHeight)
-console.log(headerHeight);
+// get current year
+
+const currentDate = new Date()
+const currentYear = currentDate.getFullYear()
+
+// set copyright year to current year
+
+copyrightYear.textContent = currentYear
