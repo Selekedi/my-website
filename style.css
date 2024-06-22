@@ -275,7 +275,7 @@ main section.hero {
     min-height: 100vh;
     display: flex;
     align-items: center;
-    background:linear-gradient(rgba(230,230,230,0.5),rgba(230,230,230,0.5)),url('./images/IMG-20240311-WA0001.jpg') no-repeat;
+    background:linear-gradient(rgba(230,230,230,0.1),rgba(230,230,230,0.1)),url('./images/IMG-20240311-WA0001.jpg') no-repeat;
     background-position: right top;
 }
 
