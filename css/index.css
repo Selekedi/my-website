@@ -1,0 +1,448 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.svg {
+    display: inline-block;
+    width: 50px;
+    aspect-ratio: 1;
+    margin: 8px;
+}
+
+
+
+
+header {
+    width: 100vw;
+    padding: 8px 128px;
+    position: fixed;
+    left: 0;
+    top: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    color: #fff;
+    background: linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5));
+    z-index: 5;
+}
+
+header .logo {
+    width: 150px;
+    height: 80px;
+    overflow: hidden;
+}
+
+header .logo > a img {
+    width: 150px;
+    height: 100px;
+
+}
+
+header nav {
+    --nav-bg:#444;
+}
+
+header nav ul li {
+    list-style-type: none;
+    display: inline-block;
+    margin: 8px;
+    font-size: 24px;
+    cursor: pointer;
+}
+
+header .toggle{
+    display: none;
+}
+header .toggle .toggle-btn {
+    width: 32px;
+    height: 32px;
+    position: relative;
+    background-color: transparent;
+    border: 0;
+    outline: 0;
+    display: grid;
+    place-items:center;
+    
+}
+
+header .toggle .toggle-btn .bar {
+    --bg-clr:#fff;
+    position: relative;
+    display: block;
+    width: 32px;
+    height: 2px;
+    background:var(--bg-clr) ;
+    border-radius: 2px;
+    transition: 0.2s ease-in-out;
+    left: 0;
+
+
+}
+
+header .toggle .toggle-btn .bar::before,header .toggle .toggle-btn .bar::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    display: block;
+    width: 16px;
+    height: 2px;
+    background-color: var(--bg-clr);
+    transition: 0.2s ease-in-out;
+}
+
+header .toggle .toggle-btn .bar::before {
+    top: -8px;
+    left: 0;
+    transform-origin: 100% 0%;
+}
+
+header .toggle .toggle-btn .bar::after {
+    top: 8px;
+    left: 16px;
+    transform-origin: 0% 100%;
+}
+
+header .toggle .toggle-btn.opened .bar {
+    transform: rotate(-45deg);
+}
+
+header .toggle .toggle-btn.opened .bar::before {
+    transform: rotate(90deg) translate(10px, -1px);
+}
+
+
+header .toggle .toggle-btn.opened .bar::after {
+    transform: rotate(90deg) translate(-9px, 1px);
+    width: 16px;
+}
+
+@media (max-width:1080px){
+    header {
+        padding: 8px 64px;
+    }
+}
+
+@media (max-width:700px){
+    header {
+        padding: 8px 24px;
+    }
+
+    header .logo {
+        height: 60px;
+    }
+
+    header .logo > a img {
+        width: 100px;
+        height: 75px;
+    }
+
+    header nav ul li {
+        font-size: 20px;
+    }
+}
+
+@media (max-width:850px) {
+    header nav {
+        position: absolute;
+        top: 100%;
+        left: 0;
+        width: 100vw;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        height: 0;
+        overflow: hidden;
+        transition: height 0.2s ease-out;
+        background-color: var(--nav-bg);
+    }
+
+    header nav ul li {
+        display: block;
+        margin: 16px;
+
+    }
+
+    header .toggle {
+        display: block;
+    }
+}
+
+.chat-menu {
+    position: fixed;
+    bottom: 0;
+    right: 100px;
+    z-index: 100;
+}
+
+.chat-menu .menu {
+    position: relative;
+    width: 220px;
+    height: 220px;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+.chat-menu .menu .svg {
+    color: #000;
+    fill: #000;
+    width: 50px;
+    height: 50px;
+}
+.chat-menu .menu li {
+    position: absolute;
+    transform-origin: 100px;
+    opacity: 0;
+    left: 0;
+    transition: opacity 1s ease-in-out,transform 1s ease-in-out;
+    list-style-type: none;
+    transition-delay: calc(0.05s * var(--i));
+    
+}
+
+.chat-menu .menu li span {
+    transition: transform 1s ease-in-out;
+}
+
+.chat-menu .menu.active li {
+    transform: rotate(calc(360deg / 3 * var(--i)));
+    opacity: 1;
+
+}
+
+.chat-menu .menu.active li span {
+    transform: rotate(calc(360deg / -3 * var(--i)));
+    cursor: pointer;
+}
+
+.chat-menu .menu .toggle {
+    position: relative;
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+
+
+}
+.chat-menu .menu .toggle span{
+    display: inline-block;
+    position: absolute;
+    transition: transform 1s ease-in-out,opacity 1s ease-in-out;
+
+
+}
+
+.chat-menu .menu .toggle span:nth-child(1){
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+.chat-menu .menu.active .toggle span:nth-child(1){
+    opacity: 0;
+    transform: rotate(360deg);
+}
+
+.chat-menu .menu .toggle span:nth-child(2){
+    opacity: 0;
+    transform: rotate(360deg);
+}
+
+.chat-menu .menu.active .toggle span:nth-child(2){
+    opacity: 1;
+    transform: rotate(0deg);
+}
+
+@media (max-width:1100px){
+    .chat-menu {
+        right: 0; 
+    }
+
+}
+
+main .hero {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+main .hero .hero-background {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    z-index: -5;
+
+}
+
+main .hero .hero-background::before {
+    content: "";
+    position: absolute;
+    right: 0;
+    height: 50px;
+    width: 50px;
+    background:linear-gradient(to top, rgba(0,0,0,1),rgba(0,0,0,0.5));
+    border-radius: 50%;
+    transform: translate(1050%,0) scale(50); 
+}
+
+main .hero .hero-container {
+    display: flex;
+}
+
+main .hero .hero-container .text-container {
+    width: 65%;
+}
+
+main .hero .hero-background .visual-container {
+    width: 35%;
+    overflow: hidden;
+    height: 100vh;
+}
+
+main .hero .hero-container .visual-container img {
+    transform:translate(10px,150px) scale(1.35);
+    z-index: -5;
+}
+
+main .hero .hero-container .text-container {
+    height: 100vh;
+    padding: 0 128px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+main .hero .hero-container .text-container .headline {
+    font-size: 40px;
+    margin-bottom: 28px;
+}
+
+main .hero .hero-container .text-container .animated-paragraph {
+    font-size: 18px;
+    margin-bottom: 36px;
+}
+
+main .hero .hero-container .text-container .animated-paragraph span {
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+main .hero .hero-container .text-container .cta-container {
+    margin-bottom: 56px;
+}
+
+main .hero .hero-container .text-container .cta-container button{
+    font-size: 24px;
+    padding: 8px 16px;
+    border: 1px solid;
+    background-color: #fff;
+    border-radius: 12px;
+    cursor: pointer;
+    margin: 0 8px 0 0 ;
+}
+
+main .hero .hero-container .text-container .cta-container button:nth-child(1){
+    background-color: #000;
+    color: #fff;
+}
+
+main .hero .hero-container .text-container .social-links > p {
+    margin-bottom: 24px;
+    font-size: 24px;
+    text-transform: capitalize;
+    font-weight: 600;
+
+}
+
+@media (max-width:1100px){
+    main .hero .hero-background::before{
+        transform: translate(1100%,0) scale(40);
+    }
+
+    main .hero .hero-container .text-container .headline {
+        font-size: 32px;
+    }
+
+    main .hero .hero-container .text-container .cta-container button {
+        font-size: 20px;
+    }
+}
+
+@media (max-width:820px) and (min-height:450px){
+    main .hero .hero-background {
+        background: url("../images/hero-images/hero-background-images/0e7411249ab5bc9c2184980b4d6323e4-removebg.png") no-repeat;
+        background-position:right;
+    }
+    main .hero .hero-background::before {
+        background: linear-gradient(to top,rgba(0,0,0,0.7),rgba(0,0,0,0.3));
+    }
+    main .hero .hero-container .visual-container {
+        display: none;
+    }
+
+    main .hero .hero-container .text-container {
+        width: 100vw;
+    }
+}
+
+@media (max-width:1000px) and (max-height:500px){
+    main .hero {
+        min-height: 100vh;
+        height: auto;
+    }
+    main .hero .hero-background {
+        background: url("../images/hero-images/hero-background-images/0e7411249ab5bc9c2184980b4d6323e4-removebg.png") no-repeat;
+        background-position:top right;
+    }
+    main .hero .hero-background::before {
+        background: linear-gradient(to top,rgba(0,0,0,0.7),rgba(0,0,0,0.3));
+    }
+    main .hero .hero-container .visual-container {
+        display: none;
+    }
+
+    main .hero .hero-container .text-container {
+        width: 100vw;
+        height: auto;
+        padding: 96px 48px 0 48px;
+    }
+}
+
+@media (max-width:500px){
+    main .hero {
+        color: #fff;
+    }
+    main .hero .svg {
+        fill: #fff;
+    }
+    main .hero .hero-background {
+        background-position: left;
+    }
+
+    main .hero .hero-background::before {
+        transform: translate(0,0) scale(40);
+    }
+    main .hero .hero-container .text-container {
+
+        padding: 0 32px;
+    }
+    main .hero .hero-container .text-container .cta-container button {
+        padding: 4px 8px;
+    }
+
+    main .hero .social-links .svg {
+        margin: 0px 8px 0 0;
+    }
+}
+
+

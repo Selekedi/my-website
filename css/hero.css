@@ -1,0 +1,305 @@
+main .hero {
+    transform:translate(0,0)
+}
+
+main section.active {
+    transform: translate(0,0);
+}
+.hero {
+    overflow: hidden;
+}
+
+.hero #carousel {
+    width: 300px;
+    height: 100px;
+    border: 1px solid;
+    position: absolute;
+    bottom: 100px;
+    right: 200px;
+    z-index: 100;
+    opacity: 0;
+    display: flex;
+    transform: translate(0,150px);
+    transition: opacity 1s ease-in-out,transform 1s ease-in-out;
+
+}
+
+.hero #carousel.active {
+    transform: translate(0,0);
+    opacity: 1;
+}
+
+.hero #carousel > div {
+    border: 1px solid;
+}
+
+main .hero .container {
+    position: absolute;
+    width: 500px;
+    aspect-ratio: 1;
+    background: #ff0022;
+    top: -150%;
+    left: -23%;
+    /*transform: translate(-50%,-50%);*/
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+main .hero .container .menu {
+    position: relative;
+    width: 250px;
+    aspect-ratio: 1;
+    background-color: #2200ff;
+}
+main .hero .container .menu .special {
+    position: absolute;
+    left: 0;
+    width: 500px;
+    aspect-ratio: 1;
+    opacity: 0;
+    transform-origin: 1000px 1000px;
+    transition: opacity 1s ease-in-out, transform 0.4s ease-in-out;
+    --zero:120deg;
+    --in:180deg;
+    --out:480deg;
+    
+}
+
+main .hero .container .menu .special.active {
+    opacity: 1;
+}
+
+main .hero .container .menu .special > div {
+    width: 100%;
+    height: 100%;
+}
+
+main .hero .container .menu .special.active > div{
+
+    --zero:-120deg;
+    --in:-180deg;
+    --out:-480deg;
+    
+}
+
+main .hero .container .menu .special > div iframe {
+    width: 100%;
+    height: 100%;
+}
+
+@keyframes circularIn {
+from {
+    transform: rotate(var(--zero)) ;
+}
+to {
+    transform: rotate(var(--in)) ;
+}
+}
+
+@keyframes circularOut {
+from {
+    transform: rotate(var(--in))  ;
+}
+to {
+    transform: rotate(var(--out)) ;
+}
+}
+
+main .hero.active .circularIn {
+animation: circularIn 1s forwards;
+}
+
+main .hero.active .circularOut {
+animation: circularOut 3s forwards;
+}
+
+
+.container .menu .circle {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 2000px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+
+}
+
+main .hero .background {
+    --background-color:#fff;
+    --gradient-color:rgba(255,255,255,1);
+    --backgraound-after-bg-grandient:linear-gradient(var(--backgraound-after-bg-grandient),var(--gradient-color));
+    height:100vh ;
+    width: 100vw;
+    position: relative;
+    background-color: var(--background-color);
+    transition: border-radius 1s ease-in-out,background 1s ease-in-out,background-color 1s ease-in-out;
+    z-index: -4;
+    overflow: hidden;
+}
+main .hero .background::after{
+    content: "";
+    width: 100%;
+    height: 100%;
+    right: 0;
+    position: absolute;
+    background: var(--backgraound-after-bg-grandient) ;
+    
+    z-index: 2;
+}
+
+main .hero.active .background.active {
+    border-radius: 1px 1px 0 60%;
+}
+
+main .hero .background .image-block {
+width: 100%;
+height: 100%;
+position: absolute;
+display: flex;
+align-items: center;
+justify-content: center;
+z-index: 1;
+opacity: 0;
+transition: opacity 1s ease-in-out,transform 1s ease-in-out;
+
+
+
+}
+
+main .hero .background .image-block.active{
+opacity: 1;
+} 
+main .hero .background .image-block .image-container {
+width: 800px;
+transition: transform 1s ease-in-out;
+
+}
+main .hero .background .image-block:nth-child(1) .image-container{
+transform: rotate(10deg);
+
+}
+
+main .hero .background .image-block .image-container img {
+width: 300px;
+aspect-ratio: 9/16;
+display: inline-block;
+margin: 4px;
+transition: transform 1s ease-in-out;
+
+}
+
+main .hero .background .image-block:nth-child(1) .image-container img:nth-child(even)
+{
+transform: translate(0,50px);
+}
+
+main .hero .background .image-block:nth-child(2) .image-container img:nth-child(1)
+{
+transform: translate(-30px,-30px) rotate(10deg);
+}
+
+main .hero .background .image-block:nth-child(2) .image-container img:nth-child(2)
+{
+transform: translate(30px,-30px) rotate(-10deg);
+}
+
+main .hero .background .image-block:nth-child(2) .image-container img:nth-child(3)
+{
+transform: translate(-30px,30px) rotate(-10deg);
+}
+
+main .hero .background .image-block:nth-child(2) .image-container img:nth-child(4)
+{
+transform: translate(30px,30px) rotate(10deg);
+}
+
+main .hero .animated-paragraph {
+position: absolute;
+--spancolor:#FF0000;
+--color:#000;
+font-size: 2rem;
+color: transparent;
+top: 30%;
+left: 10%;
+z-index: 5;
+}
+
+main .hero .animated-paragraph .line {
+display: block;
+position: relative;
+opacity: 0;
+transform: translateY(20px);
+transition: opacity 0.5s ease-in, transform 0.5s ease-in,color 1s ease-in-out;
+margin: 8px 0;
+}
+
+main .hero .animated-paragraph .line > span {
+font-size: 2.2rem;
+text-transform: uppercase;
+font-style: italic;
+font-weight: 800;
+font-family: 'Times New Roman', Times, serif;
+color: var(--spancolor);
+transition: color 1s ease-in-out;
+}
+main .hero.active .animated-paragraph .line.active {
+opacity: 1;
+    transform: translateY(0);
+    color: var(--color);
+}
+
+main .hero .cta-container {
+z-index: 1000;
+position:absolute;
+bottom: 300px;
+left: 10%;
+display: flex;
+}
+
+main .hero .cta-container > button {
+font-size: 2.5rem;
+background-color: transparent;
+outline: 0;
+border: 0;
+display: flex;
+align-items: center;
+justify-content: center;
+color: #fff;
+cursor: pointer;
+margin-right: 16px;
+padding: 8px 24px;
+border-radius: 8px;
+transition: opacity 1s ease-in-out,background-color 0.5s ease-in-out, color 0.5s ease-in-out;
+font-family: cursive;
+}
+
+main .hero .cta-container > button:nth-child(1) {
+border:1px solid ;
+}
+
+main .hero .cta-container > button:nth-child(2) ion-icon{
+margin-left: 8px;
+--width:40px;
+transform: translate(-100%,0);
+width: 0;
+transition: width 0.5s ease-in-out,transform 0.5s ease-in-out;
+}
+
+main .hero .cta-container > button:nth-child(1):hover{
+background-color: #fff;
+color: #000;
+
+}
+main .hero .cta-container > button:nth-child(2){
+background-color: #000;
+color: #aaa
+}
+
+
+main .hero .cta-container > button:nth-child(2):hover ion-icon {
+transform: translate(0,0);
+width: var(--width);
+
+}

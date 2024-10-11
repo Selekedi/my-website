@@ -1,0 +1,475 @@
+#about-us {
+    width: 100vw;
+    height: 100vh;
+    padding: 156px 128px ;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+#about-us .about-us-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+}
+
+#about-us .about-us-container > .visual-cta-highlights-container {
+    width: 45%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#about-us .about-us-container > .visual-cta-highlights-container .visual-container {
+    width: 450px;
+    aspect-ratio: 1;
+    position: relative;
+    overflow: hidden;
+    border-radius: 50%;
+
+}
+
+#about-us .about-us-container > .visual-cta-highlights-container .visual-container img {
+    width: 450px;
+    position: absolute;
+    aspect-ratio: 9/16;
+    top: -12%;
+}
+
+#about-us .about-us-container > .visual-cta-highlights-container .cta-container button {
+    display: block;
+    margin-top: 48px;
+    padding: 24px 48px;
+    border: 2px solid #fff;
+    border-radius: 12px;
+    background-color: #000;
+    color: #fff;
+    font-size: 32px;
+    text-transform: capitalize;
+}
+
+#about-us .about-us-container > .textual-depth-container {
+    width: 60%;
+    height: 100%;
+    padding-top: 48px;
+
+}
+
+#about-us .about-us-container > .textual-depth-container > h1 {
+    font-size: 72px;
+    margin-bottom: 64px;
+    text-shadow: 2px 2px 0 #555;
+    transform: translate(-20%,0);
+
+}
+
+#about-us .about-us-container > .textual-depth-container > p {
+    font-size: 20px;
+    margin: 24px;
+}
+
+@media (max-width:1100px) and (min-height:700px){
+    #about-us {
+        height: auto;
+        min-height: 100vh;
+        padding: 156px 64px;
+    }
+    #about-us .about-us-container {
+        flex-direction: column;
+    }
+    #about-us .about-us-container > .visual-cta-highlights-container,#about-us .about-us-container > .textual-depth-container {
+        width: 100%;
+    }
+
+    #about-us .about-us-container > .textual-depth-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #about-us .about-us-container > .textual-depth-container > h1 {
+        transform: translate(0,0);
+        flex-basis: 100%;
+        text-align: center;
+
+    }
+
+    #about-us .about-us-container > .textual-depth-container > p {
+        margin: 0;
+        flex-basis: 50%;
+        padding: 24px;
+    }
+}
+
+@media (max-width:800px) and (max-height:500px){
+    #about-us {
+        height: auto;
+        min-height: 100vh;
+        padding: 156px 64px;
+    }
+    #about-us .about-us-container {
+        flex-direction: column;
+    }
+    #about-us .about-us-container > .visual-cta-highlights-container,#about-us .about-us-container > .textual-depth-container {
+        width: 100%;
+    }
+
+    #about-us .about-us-container > .textual-depth-container {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    #about-us .about-us-container > .textual-depth-container > h1 {
+        transform: translate(0,0);
+        flex-basis: 100%;
+        text-align: center;
+
+    }
+
+    #about-us .about-us-container > .textual-depth-container > p {
+        margin: 0;
+        flex-basis: 50%;
+        padding: 24px;
+    }
+}
+
+@media (max-width:500px) and (min-height:500px){
+    #about-us {
+        height: auto;
+        min-height: 100vh;
+        padding: 72px 24px;
+        overflow: hidden;
+    }
+    #about-us .about-us-container {
+        flex-direction: column;
+    }
+    #about-us .about-us-container > .visual-cta-highlights-container,#about-us .about-us-container > .textual-depth-container {
+        width: 100%;
+    }
+
+    #about-us .about-us-container > .textual-depth-container > h1 {
+        font-size: 32px;
+        margin-bottom: 32px;
+    }
+
+    #about-us .about-us-container > .textual-depth-container > p {
+        margin: 0;
+        flex-basis: 100%;
+        padding: 8px;
+        font-size: 16px;
+    }
+}
+
+#services {
+    width: 100vw;
+    padding: 156px 128px;
+}
+
+#services .services-container  {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#services .services-container > h1 {
+    font-size: 52px;
+    margin-bottom: 48px;
+    text-shadow: 2px 2px 0 #555;
+}
+
+#services .services-container .services  {
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    
+}
+
+#services .services-container .services > div {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 0 48px;
+
+}
+
+#services .services-container .services > div .icon {
+    width: 250px;
+    height: 200px;
+    display: block;
+    margin: 48px 0;
+    overflow: hidden;
+}
+
+#services .services-container .services > div .icon svg {
+    display: inline-block;
+    width: 250px;
+    height: 200px;
+}
+
+#services .services-container .services > div .title {
+    display: block;
+    font-size: 24px;
+    margin: 16px;
+}
+
+#services .services-container .services > div p {
+    width: 400px;
+
+    text-align: center;
+}
+
+
+@media (max-width:500px) and (min-height:500px){
+    #services {
+        padding: 72px 32px;
+    }
+    #services .services-container > h1 {
+        font-size: 32px;
+    }
+
+    #services .services-container .services > div {
+        margin: 8px 0;
+    }
+    #services .services-container .services > div p {
+        width: 300px;
+        font-size: 16px;
+    
+        text-align: center;
+    }   
+}
+
+#portfolio {
+    width: 100vw;
+    padding: 156px 128px;
+}
+
+#portfolio .portfolio-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#portfolio .portfolio-container > h1 {
+    font-size: 52px;
+    margin-bottom: 48px;
+    text-shadow: 2px 2px 0 #555
+}
+
+#portfolio .portfolio-container .portfolio-items {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+#portfolio .portfolio-container .portfolio-items .portfolio {
+    display: flex;
+    flex-direction: column;
+    margin: 16px;
+    align-items: center;
+    padding: 16px;
+    box-shadow: 0px 0px 1px #555;
+    border-radius: 8px;
+}
+
+#portfolio .portfolio-container .portfolio-items .portfolio .image-container {
+    margin:  16px 0;
+    margin-bottom: 32px;
+    box-shadow: 0px 0px 2px #555;
+    border-radius: 8px;
+}
+
+#portfolio .portfolio-container .portfolio-items .portfolio .image-container a {
+    display: block;
+    width: 300px;
+    aspect-ratio: 1;
+    overflow: hidden;
+}
+
+#portfolio .portfolio-container .portfolio-items .portfolio .image-container a img {
+   width: 300px;
+   aspect-ratio: 9/16;
+   border-radius: 8px;
+}
+
+#portfolio .portfolio-container .portfolio-items .portfolio .view-on-tiktok {
+    display: inline-block;
+    background-color: #eee;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000;
+    padding: 4px 16px;
+    text-transform: capitalize;
+    border-radius: 8px;
+    box-shadow: 0px 0px 3px #555;
+    color: #000;
+}
+
+#portfolio .portfolio-container .portfolio-items .portfolio .view-on-tiktok span {
+    width: 20px;
+    aspect-ratio: 1;
+}
+
+#portfolio .portfolio-container .portfolio-items .portfolio .view-on-tiktok span svg {
+    fill: #000;
+}
+
+#portfolio .portfolio-container > a {
+    display: block;
+    margin-top: 64px;
+    background-color: #eee;
+    text-decoration: none;
+    font-size: 20px;
+    color: #000;
+    padding: 4px 16px;
+    text-transform: capitalize;
+    border-radius: 8px;
+    box-shadow: 0px 0px 3px #555;
+    color: #000;
+}
+
+#portfolio .portfolio-container > a span {
+    width: 20px;
+    aspect-ratio: 1;
+}
+
+#portfolio .portfolio-container > a span svg {
+    fill: #000;
+}
+
+@media (max-width:500px) and (min-height:500px){
+    #portfolio {
+        padding: 64px 32px;
+    }
+
+    #portfolio .portfolio-container > h1 {
+        font-size: 32px;
+        text-align: center;
+    }
+    #portfolio .portfolio-container .portfolio-items .portfolio {
+        display: flex;
+        flex-direction: column;
+        margin: 16px;
+        align-items: center;
+        padding: 16px;
+        box-shadow: 0px 0px 1px #555;
+        border-radius: 8px;
+    }
+    
+    #portfolio .portfolio-container .portfolio-items .portfolio .image-container {
+        margin:  16px 0;
+        margin-bottom: 32px;
+        box-shadow: 0px 0px 2px #555;
+        border-radius: 8px;
+    }
+    
+    #portfolio .portfolio-container .portfolio-items .portfolio .image-container a {
+        display: block;
+        width: 300px;
+        aspect-ratio: 1;
+        overflow: hidden;
+    }
+    
+    #portfolio .portfolio-container .portfolio-items .portfolio .image-container a img {
+       width: 300px;
+       aspect-ratio: 9/16;
+       border-radius: 8px;
+    }
+}
+
+#contact-us {
+    width: 100vw;
+    padding: 156px 128px;
+}
+
+#contact-us .contact-us-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contact-us .contact-us-container > h1 {
+    font-size: 52px;
+    text-transform: capitalize;
+    margin-bottom: 64px;
+    text-shadow: 2px 2px 0 #555;
+}
+
+#contact-us .contact-us-container .info {
+    margin-bottom: 48px;
+}
+
+#contact-us .contact-us-container .info .info-card {
+    display: flex;
+    align-items: center;
+    margin: 8px;
+}
+
+#contact-us .contact-us-container .info .info-card .info-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#contact-us .contact-us-container .info .info-card .name{
+    font-size: 24px;
+    font-weight: 600;
+    margin: 8px;
+}
+
+#contact-us .contact-us-container .info .info-card .detail {
+    font-size: 18px;
+    margin-left: 8px;
+}
+
+#contact-us .contact-us-container .links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+#contact-us .contact-us-container .links > p {
+    font-size: 20px;
+    text-transform: capitalize;
+    font-weight: 600;
+    margin-bottom: 24px;
+}
+
+#contact-us .contact-us-container .social-links {
+    text-align: center;
+}
+
+#contact-us .contact-us-container .links a {
+    color: #000;
+    
+}
+
+@media (max-width:500px) and (min-height:500px) {
+    #contact-us {
+        width: 100vw;
+        padding: 64px 32px;
+    }
+
+    #contact-us .contact-us-container > h1 {
+        font-size: 32px;
+    }
+}
+
+
+footer {
+    width: 100vw;
+    background-color: #000;
+    text-align: center;
+    font-size: 20px;
+    padding: 8px 0;
+    color: #fff;
+}
+
+
+
+
+
+
