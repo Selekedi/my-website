@@ -177,6 +177,10 @@ header .toggle .toggle-btn.opened .bar::after {
     z-index: 100;
 }
 
+.chat-menu.hide {
+    display: none;
+}
+
 .chat-menu .menu {
     position: relative;
     width: 220px;

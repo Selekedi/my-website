@@ -101,9 +101,11 @@ contactUsLinkBtns.forEach(btn => {
 
 // UPDATING THE COLORS OF CHATMENU ICONS
 
-window.addEventListener("scroll",updateFixedElementColors)
+window.addEventListener("scroll",() => {
+    updateFixedElementColors()
+    chatMenuShowHide()
+})
 updateFixedElementColors()
-
 
 function updateFixedElementColors(){
     let verticalPosition = window.scrollY
@@ -140,6 +142,20 @@ function updateChatMenuIcons(clr){
 function updateNavBackground(clr){
     const nav = document.querySelector("nav")
     nav.style.setProperty("--nav-bg",clr)
+}
+
+function chatMenuShowHide(){
+    if(window.innerHeight > 500 && window.innerWidth < 500){
+        let scrollPosition = window.scrollY
+        let contactUsPageTop = document.getElementById("contact-us").offsetTop
+        const chatContainer = document.querySelector('.chat-menu')
+
+        if(scrollPosition > contactUsPageTop - 100){
+            chatContainer.classList.add('hide')
+        }else {
+            chatContainer.classList.remove('hide')
+        }
+    }
 }
 
 
