@@ -111,13 +111,13 @@
 
         function loadPayfastScript() {
             return new Promise((resolve, reject) => {
-                if (document.querySelector("script[src='https://www.payfast.co.za/onsite/engine.js']")) {
+                if (document.querySelector("script[src='https://sandbox.payfast.co.za/onsite/engine.js']")) {
                     resolve(); // Script already loaded
                     return;
                 }
 
                 const script = document.createElement("script");
-                script.src = "https://www.payfast.co.za/onsite/engine.js";
+                script.src = "https://sandbox.payfast.co.za/onsite/engine.js";
 
                 // Resolve the promise when the script loads successfully
                 script.onload = () => resolve();
