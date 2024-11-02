@@ -92,23 +92,41 @@
 
         // Another function that continues with payment processing
         function continuePaymentProcess(identifier) {
-        // Do something with the identifier, like sending it to another API or updating the UI
-            loadPayfastScript()
-            window.payfast_do_onsite_payment({"uuid":identifier}, function (result) {
-                if (result === true) {
-                    // Payment Completed
-                }
-                else {
-                    // Payment Window Closed
-                }
-                }); 
+            // Load the PayFast script and proceed once it's fully loaded
+            loadPayfastScript().then(() => {
+                // Now you can safely call the on-site payment function
+                window.payfast_do_onsite_payment({"uuid": identifier}, function (result) {
+                    if (result === true) {
+                        // Payment Completed
+                        console.log("Payment completed successfully");
+                    } else {
+                        // Payment Window Closed
+                        console.log("Payment window closed without completing payment");
+                    }
+                });
+            }).catch(error => {
+                console.error("Failed to load PayFast script:", error);
+            });
         }
 
-        function loadPayfastScript(){
-            const script = document.createElement("script")
-            script.src = "https://www.payfast.co.za/onsite/engine.js"
-            document.head.append(script)
+        function loadPayfastScript() {
+            return new Promise((resolve, reject) => {
+                if (document.querySelector("script[src='https://www.payfast.co.za/onsite/engine.js']")) {
+                    resolve(); // Script already loaded
+                    return;
+                }
+
+                const script = document.createElement("script");
+                script.src = "https://www.payfast.co.za/onsite/engine.js";
+
+                // Resolve the promise when the script loads successfully
+                script.onload = () => resolve();
+                script.onerror = () => reject(new Error("Failed to load the PayFast script."));
+
+                document.head.append(script);
+            });
         }
+
 
     </script>
 </body>
