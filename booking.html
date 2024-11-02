@@ -62,7 +62,8 @@
             );
 
             if (!response.ok) {
-            throw new Error("Failed to get payment identifier");
+                const errorMessage = await response.json()
+                throw new Error("Failed to get payment identifier", errorMessage);
             }
 
             const data = await response.json();
