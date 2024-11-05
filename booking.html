@@ -4,18 +4,141 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            width: 100vw;
+            display: flex;
+            position: fixed;
+            left: 0;
+            top: 0;
+            align-items: center;
+            padding: 8px 128px;
+        }
+        header .logo a {
+            text-decoration: none;
+        }
+
+        header .logo a img {
+            width: 150px;
+            height: 100px;
+        }
+
+        main {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            padding: 64px;
+            box-shadow: 0 0 1px #555;
+        }
+
+        form input, form label {
+            font-size: 21px;
+            text-transform: uppercase;
+            padding: 8px 24px;
+            border-radius: 8px;
+            outline: 0;
+        }
+
+        form input[type="date"] {
+            text-align: center;
+        }
+
+        form input[type="radio"] {
+            transform: scale(1.5);
+        }
+        
+        form .location, form > input {
+            margin: 16px 0;
+        }
+
+        form input[type="submit"] {
+            background: #000;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .location .location-input-container {
+            overflow: hidden;
+            margin-top: 8px;
+            transition: height 0.3s ease-in-out;
+        }
+
+        @media (max-width:800px) {
+            header {
+                padding: 8px 5vw;
+            }        
+        }
+
+        @media (max-width:650px) {
+            form {
+                padding: 8px 16px;
+                width: 80vw;
+            }
+            form input, form label, .location p {
+                font-size: 16px;
+            }
+
+            .location {
+                display: flex;
+                flex-direction: column;
+            }
+
+            form input[type="radio"] {
+                transform: scale(1);
+            }
+        }
+    </style>
 </head>
 <body>
+    <header>
+        <div class="logo">
+            <a href="/index.html">
+                <img src="./images/logo/IMG-20240311-WA0002-removebg-preview(1).png" alt="">
+            </a>
+        </div>
+    </header>
+    <main>
+        <form id="form">
+            <h1>
+                Create Booking
+            </h1>
+            <input type="date" id="date">
+            <input type="text" name="type" id="type" placeholder="type of event (e.g Wedding/birthday party)">
+            <div class="location">
+                <p>Are you within 10 kilometers of Event Location </p>
+                <label>
+                    <input type="radio" name="near" value="yes" checked>
+                    Yes
+                </label>
+                <label>
+                    <input type="radio" name="near" value="no">
+                    No
+                </label>
+                <label>
+                    <input type="radio" name="near" value="not-sure">
+                    Not Sure
+                </label>
+                <div class="location-input-container">
+                    <input type="text" placeholder="Enter Location Name">
+                </div>
+            </div>
 
-   <form id="form">
-    <input type="text" placeholder="Amount" name="amount">
-    <input type="email" placeholder="Enter email" name="emailAddress">
-    <input type="tel" placeholder="Enter Cell Number" name="cellNumber">
-    <button type="submit">Pay</button>
-   </form>
-    <script type="module">
-       
-
-    </script>
+            <input type="submit" value="Book">
+       </form>
+    </main>
+   
+    <script async type="module" src="./javascript/booking.js"></script>
 </body>
 </html>
