@@ -23,3 +23,28 @@ function updateNearityInput(){
 }
 
 updateNearityInput()
+
+form.addEventListener("submit", e => {
+    e.preventDefault()
+    let dateValue = date.value
+    let newDate = new Date(dateValue)
+    let currentDate = new Date()
+    if(isNaN(newDate.getTime()) ||currentDate.getTime() >= newDate.getTime()  ){
+        alert("invalid date, Enter a new date")
+        return
+    }
+
+    let typeOfEventValue = typeOfEvent.value
+    if(typeOfEvent === ""){
+        alert("enter type of event")
+        return
+    }
+
+    let locationNearity = document.querySelector('input[name="near"]:checked').value
+    let locationInputValue = locationInput.value
+    if(locationNearity !== "yes" && locationInputValue === ""){
+        alert("Enter Event Location")
+        return
+    }
+    
+})
