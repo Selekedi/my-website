@@ -131,7 +131,7 @@ function continuePaymentProcess(identifier) {
     // Load the PayFast script and proceed once it's fully loaded
     loadPayfastScript().then(() => {
         // Now you can safely call the on-site payment function
-        window.payfast_do_onsite_payment({"uuid": identifier,"return_url":"https://selekedi.github.io/my-website/manage_booking.html?bookingId="+bookingId,"cancel_url":"https://selekedi.github.io/my-website/manage_booking.html?bookingId="+bookingId,"notify_url":"https://us-central1-thatothemc.cloudfunctions.net/getPaymentNotification"});
+        window.payfast_do_onsite_payment({"uuid": identifier,"return_url":"https://selekedi.github.io/my-website/manage_booking.html?bookingId="+bookingId,"cancel_url":"https://selekedi.github.io/my-website/manage_booking.html?bookingId="+bookingId,"notify_url":"https://a3e2-102-214-233-169.ngrok-free.app/getNot"});
     }).catch(error => {
         console.error("Failed to load PayFast script:", error);
     });
