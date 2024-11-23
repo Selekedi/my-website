@@ -131,15 +131,7 @@ function continuePaymentProcess(identifier) {
     // Load the PayFast script and proceed once it's fully loaded
     loadPayfastScript().then(() => {
         // Now you can safely call the on-site payment function
-        window.payfast_do_onsite_payment({"uuid": identifier }, function (result) {
-            if (result === true) {
-                // Payment Completed
-                console.log("Payment completed successfully");
-            } else {
-                // Payment Window Closed
-                console.log("Payment window closed without completing payment");
-            }
-        });
+        window.payfast_do_onsite_payment({"uuid": identifier,"notify_url": "https://us-central1-thatothemc.cloudfunctions.net/getPaymentNotification"});
     }).catch(error => {
         console.error("Failed to load PayFast script:", error);
     });
