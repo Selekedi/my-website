@@ -43,6 +43,11 @@
             box-shadow: 0 0 1px #555;
         }
 
+        form h1 {
+            margin-bottom: 24px;
+            text-transform: capitalize;
+        }
+
         form input, form label {
             font-size: 21px;
             text-transform: uppercase;
@@ -51,13 +56,17 @@
             outline: 0;
         }
 
+        #mapDiv {
+            width: auto;
+            aspect-ratio: 1;
+            margin: 16px 0;
+        }
+
         form input[type="date"] {
             text-align: center;
         }
 
-        form input[type="radio"] {
-            transform: scale(1.5);
-        }
+        
         
         form .location, form > input {
             margin: 16px 0;
@@ -69,11 +78,7 @@
             cursor: pointer;
         }
 
-        .location .location-input-container {
-            overflow: hidden;
-            margin-top: 8px;
-            transition: height 0.3s ease-in-out;
-        }
+        
 
         @media (max-width:800px) {
             header {
@@ -86,7 +91,7 @@
                 padding: 8px 16px;
                 width: 80vw;
             }
-            form input, form label, .location p {
+            form input, form label{
                 font-size: 16px;
             }
 
@@ -117,28 +122,17 @@
             <input type="date" id="date">
             <input type="text" name="type" id="type" placeholder="type of event (e.g Wedding/birthday party)">
             <div class="location">
-                <p>Are you within 10 kilometers of Event Location </p>
-                <label>
-                    <input type="radio" name="near" value="yes" checked>
-                    Yes
-                </label>
-                <label>
-                    <input type="radio" name="near" value="no">
-                    No
-                </label>
-                <label>
-                    <input type="radio" name="near" value="not-sure">
-                    Not Sure
-                </label>
-                <div class="location-input-container">
-                    <input type="text" placeholder="Enter Location Name">
-                </div>
+                <h3>Location</h3>
+                <input type="text" name="autoComplete" id="autoComplete" placeholder="Search Location">
+                <div id="mapDiv"></div>
+
             </div>
 
             <input type="submit" value="Book">
        </form>
     </main>
    
-    <script async type="module" src="./javascript/booking.js"></script>
+    <script type="module" src="./javascript/booking.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
 </body>
 </html>

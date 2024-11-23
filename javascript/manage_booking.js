@@ -1,13 +1,84 @@
+import { collection, doc, getDoc} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { db } from "./firebase.js";
+import { checkUserAuth } from "./auth.js";
+import { formatPaymentValue } from "./utils.js";
 
-document.getElementById("form").addEventListener("submit", e => {
-    e.preventDefault()
-    const cellNumber = document.querySelector('input[name="cellNumber"]').value
-    const emailAddress = document.querySelector('input[name="emailAddress"]').value
-    const amount = document.querySelector('input[name="amount"]').value
-    processPayment(amount,emailAddress,cellNumber)
+const bookingId = getQueryParam("bookingId")
+
+const dateCell = document.getElementById("date")
+const typeCell = document.getElementById("type")
+const totalPriceCell = document.getElementById("total-price")
+const amountOwingCell = document.getElementById("amount-owing")
+const controlsContainer = document.getElementById("controls")
+const warningMessage = document.getElementById("warning")
+
+const confirmBtn = `<button onclick="confirmBooking()" id="confirm-btn">Confirm Booking R500</button>`
+
+window.addEventListener("DOMContentLoaded", async e => {
+    const bookingData = await getBookingDetails(bookingId)
+    populateData(bookingData)
 })
 
-async function getPaymentIdentifier(amount,emailAddress,cellNumber) {
+function getPayFullAmountOwingBtn(AmountOwing){
+    return `<button id="pay-amount-owing" onclick=payFullAmountOwing(${AmountOwing})>Pay Full Amount Owed R${AmountOwing}</button>`
+}
+
+function getCancelBtn(bookingId){
+    return `<button id="cancel-btn" onclick="cancelBooking(${bookingId})">Cancel Booking</button>`
+}
+
+function getPayFullPriceBtn(price){
+    return `<button id="pay-full-price" onclick="payFullPrice(${price})" >Pay Full Price R${price}</button>`
+}
+
+async function getBookingDetails(bookingId) {
+    try {
+      // Reference to the specific booking document
+      const bookingRef = doc(db, 'bookings', bookingId);
+      
+      // Get the document data
+      const bookingDoc = await getDoc(bookingRef);
+      
+      if (bookingDoc.exists()) {
+        const bookingData = bookingDoc.data();
+        console.log('Booking details:', bookingData);
+        return bookingData;
+      } else {
+        console.log('No such booking found');
+        return null;
+      }
+    } catch (error) {
+      console.error('Error getting booking details:', error);
+      return null;
+    }
+  }
+
+  function populateData(bookingData){
+    dateCell.innerText = bookingData.date;
+    typeCell.innerText = bookingData.eventType;
+    totalPriceCell.innerText = formatPaymentValue(bookingData.totalPrice);
+    amountOwingCell.innerText = formatPaymentValue(parseFloat(bookingData.totalPrice) - parseFloat(bookingData.amount_paid))
+    const cancelBtn = getCancelBtn(bookingId)
+
+    if(!bookingData.confirmed && bookingData.confirmable){
+
+        const payFullPriceBtn = getPayFullPriceBtn(formatPaymentValue(bookingData.totalPrice))
+        controlsContainer.innerHTML = confirmBtn + payFullPriceBtn + cancelBtn
+    }else if(bookingData.confirmed) {
+        const payFullAmountBtn = getPayFullAmountOwingBtn(formatPaymentValue(parseFloat(bookingData.totalPrice) - parseFloat(bookingData.amount_paid)))
+        controlsContainer.innerHTML = payFullAmountBtn + cancelBtn
+    }else if(!bookingData.confirmable){
+        warningMessage.textContent = "Sorry, Someone has already secured this date"
+        controlsContainer.innerHTML = cancelBtn
+    }
+  }
+
+function getQueryParam(param) {
+    const urlParams = new URLSearchParams(window.location.search);
+    return urlParams.get(param);
+  }
+
+async function getPaymentIdentifier(amount,bookingId,type) {
 try {
     const response = await fetch(
     "https://us-central1-thatothemc.cloudfunctions.net/getPaymentIdentifier",
@@ -18,8 +89,8 @@ try {
         },
         body: JSON.stringify({
         amount,
-        emailAddress,
-        cellNumber, // Example amount
+        bookingId,
+        type // Example amount
          // Replace with actual email
         // other required fields
         }),
@@ -41,8 +112,8 @@ try {
 }
 
 // Use the identifier somewhere else in your code
-async function processPayment(amount,emailAddress,cellNumber) {
-    const identifier = await getPaymentIdentifier(amount,emailAddress,cellNumber);
+async function processPayment(amount,bookingId,typeOfPayment) {
+    const identifier = await getPaymentIdentifier(amount,bookingId,typeOfPayment);
     
     if (identifier) {
         // Use the identifier where needed
@@ -60,7 +131,7 @@ function continuePaymentProcess(identifier) {
     // Load the PayFast script and proceed once it's fully loaded
     loadPayfastScript().then(() => {
         // Now you can safely call the on-site payment function
-        window.payfast_do_onsite_payment({"uuid": identifier}, function (result) {
+        window.payfast_do_onsite_payment({"uuid": identifier }, function (result) {
             if (result === true) {
                 // Payment Completed
                 console.log("Payment completed successfully");
@@ -91,3 +162,19 @@ function loadPayfastScript() {
         document.head.append(script);
     });
 }
+
+function confirmBooking(){
+    processPayment("500.00",bookingId,"confirm")
+}
+
+function payFullAmountOwing(amount){
+    processPayment(amount,bookingId,"payAmountOwing")
+}
+
+function payFullPrice(amount){
+    processPayment(amount,bookingId,"payFullAmount")
+}
+
+window.confirmBooking = confirmBooking
+window.payFullAmountOwing = payFullAmountOwing
+window.payFullPrice = payFullPrice

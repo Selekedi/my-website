@@ -61,3 +61,17 @@ export function containsClass(element,className){
 export function changeInnerHtml(element,newContent){
     element.innerHTML = newContent
 }
+
+export function formatPaymentValue(input) {
+    // Convert the input to a number
+    const number = parseFloat(input);
+  
+    // Check if the input is a valid number
+    if (isNaN(number)) {
+      return "NaN"; // Return "NaN" for invalid input
+    }
+  
+    // Round to the nearest integer and append ".00"
+    const rounded = Math.round(number);
+    return `${rounded}.00`;
+}

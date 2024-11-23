@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auth</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            width: 100vw;
+            display: flex;
+            position: fixed;
+            left: 0;
+            top: 0;
+            align-items: center;
+            padding: 8px 128px;
+        }
+        header .logo a {
+            text-decoration: none;
+        }
+
+        header .logo a img {
+            width: 150px;
+            height: 100px;
+        }
+
+        main {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            padding: 64px;
+            box-shadow: 0 0 1px #555;
+        }
+
+        form h1 {
+            margin-bottom: 24px;
+            text-transform: capitalize;
+        }
+
+        form label, form input {
+            font-size: 21px;
+            margin: 8px 0;
+            padding: 8px;
+            border-radius: 8px;
+        }
+
+
+        form label[for="phoneNumber"] small{
+            display: block;
+        }
+
+        form label[for="phoneNumber"] {
+            margin-bottom: 4px;
+        }
+
+        input#phoneNumber {
+            margin-top: 0px;
+        }
+
+        form button#emailRegisterButton {
+            font-size: 21px;
+            padding: 8px 0;
+            background-color: #000;
+            color: #fff;
+            margin: 8px 0;
+            border-radius: 8px;
+        }
+
+        form .socials {
+            display: flex;
+            justify-content: center;
+            margin: 8px 0;
+        }
+
+        form .socials button {
+            font-size: 21px;
+            padding: 8px;
+
+            margin: 0 8px;
+        }
+        @media (max-width:800px) {
+            header {
+                padding: 8px 5vw;
+            }        
+        }
+
+        @media (max-width:650px) {
+            form {
+                padding: 8px 16px;
+                width: 80vw;
+            }
+            form input, form label {
+                font-size: 16px;
+            }
+
+            form button {
+                font-size: 16px !important;
+            }
+
+            
+        }
+
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="./index.html">
+                <img src="./images/logo/IMG-20240311-WA0002-removebg-preview(1).png" alt="Logo">
+            </a>
+        </div>
+    </header>
+    <main>
+        <form action="form">
+            <h1 id="auth-header">Auth</h1>
+            <!-- Email and Password Section -->
+            <input type="email" id="email" placeholder="Email" />
+            <input type="password" id="password" placeholder="password"/>
+            
+            <!-- Cellphone Section -->
+            <label style="display: none;" for="phoneNumber">Cellphone Number <small>(Preferebly Whatsapp)</small></label>
+             
+            <input style="display: none;" type="text" id="phoneNumber" placeholder="+1234567890" />
+            
+            <!-- Buttons for Email Registration -->
+            <button type="button" id="emailRegisterButton">Register with Email</button>
+            
+            <!-- Social Login Section -->
+            <div class="socials">
+                <button type="button" id="googleSignInButton">Sign in with Google</button>
+            </div>
+            <div class="links">
+                <p id="auth-link">Already have an account? <a href="#" onclick="event.preventDefault(); handleToggle()" id="sign-up">Sign In Here</a></p>
+                <p>forgot password? <a href="#" id="sign-up">Click Here</a></p>
+            </div>
+        </form>
+        <script async type="module" src="./javascript/auth_index.js"></script>
+    </main>
+</body>
+</html>

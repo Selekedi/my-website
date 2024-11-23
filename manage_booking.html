@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manage Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        header {
+            width: 100vw;
+            display: flex;
+            position: fixed;
+            left: 0;
+            top: 0;
+            align-items: center;
+            padding: 8px 128px;
+        }
+        header .logo a {
+            text-decoration: none;
+        }
+
+        header .logo a img {
+            width: 150px;
+            height: 100px;
+        }
+
+        main {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        main section.booking-container {
+            display: flex;
+            flex-direction: column;
+            padding: 64px;
+            box-shadow: 0 0 1px #555;
+        }
+
+        .booking-container h1 {
+            margin-bottom: 48px;
+        }
+
+        table {
+            font-size: 21px;
+        }
+
+        table td, table th {
+            padding: 4px 8px;
+        }
+
+        table th {
+            text-align: left;
+        }
+
+        #controls {
+            margin-top: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        #controls > button {
+            padding: 4px 0;
+            font-size: 21px;
+            border-radius: 8px;
+
+        }
+        #pay-full-price, #pay-amount-owing {
+            background-color: #28a745;
+            color: #fff;
+        }
+
+        #cancel-btn {
+            background-color:#dc3545;
+            color: #fff;
+        }
+
+        #confirm-btn {
+            background-color: #000;
+            color: #fff;
+        }
+
+
+        @media (max-width:800px) {
+            header {
+                padding: 8px 5vw;
+            }        
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="logo">
+            <a href="./index.html">
+                <img src="./images/logo/IMG-20240311-WA0002-removebg-preview(1).png" alt="Logo">
+            </a>
+        </div>
+    </header>
+    <main>
+        <section class="booking-container">
+            <h1>Manage Booking</h1>
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <td id="date"></td>
+                </tr>
+                <tr>
+                    <th>Type</th>
+                    <td id="type"></td>
+                </tr>
+                <tr>
+                    <th>Total Price</th>
+                    <td id="total-price"></td>
+                </tr>
+                <tr>
+                    <th>Amount Owing</th>
+                    <td id="amount-owing"></td>
+                </tr>
+            </table>
+            <p id="warning" style="color: #f00;"></p>
+            <div id="controls">
+
+            </div>
+        </section>
+    </main>
+    <script type="module" src="./javascript/manage_booking.js" defer></script>
+</body>
+</html>
