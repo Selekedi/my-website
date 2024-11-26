@@ -167,11 +167,11 @@ function confirmBooking(){
 }
 
 function payFullAmountOwing(amount){
-    processPayment(amount,bookingId,"payAmountOwing")
+    processPayment(amount.toString(),bookingId,"payAmountOwing")
 }
 
 function payFullPrice(amount){
-    processPayment(amount,bookingId,"payFullAmount")
+    processPayment(amount.toString(),bookingId,"payFullAmount")
 }
 
 window.confirmBooking = confirmBooking
