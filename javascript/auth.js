@@ -1,17 +1,16 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword, updateProfile,sendPasswordResetEmail,GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from  "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
-import { collection, doc, getDoc, updateDoc} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword,sendPasswordResetEmail, onAuthStateChanged, sendEmailVerification } from  "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+import { doc, setDoc} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
 import { auth,db } from "./firebase.js";
 
-const provider = new GoogleAuthProvider();
 
 export async function createUserAndGetUid(email, password) {
   try {
     // Create the user using email and password
     const userCredential = await createUserWithEmailAndPassword(auth, email, password);
     
-    // If user creation is successful, return the UID
-    return userCredential.user.uid;
+    // If user creation is successful
+    return userCredential.user;
   } catch (error) {
     console.error("Error creating user:", error);
 
@@ -43,7 +42,7 @@ export async function checkUserAuth() {
 }
   
   // Sign in existing user
-  export async function loginUserWithEmail(email, password) {
+export async function loginUserWithEmail(email, password) {
     try {
         const userCredential = await signInWithEmailAndPassword(auth, email, password);
         console.log("User logged in:", userCredential.user);
@@ -53,6 +52,7 @@ export async function checkUserAuth() {
         return false; // Return false if login fails
     }
 }
+
 export  function logoutUser() {
     signOut(auth)
       .then(() => {
@@ -64,134 +64,94 @@ export  function logoutUser() {
       });
   }
 
-  
 export  function resetPassword(email) {
     sendPasswordResetEmail(auth, email)
       .then(() => {
         console.log("Password reset email sent!");
+        alert("Password reset email sent!")
       })
       .catch((error) => {
         console.error("Error sending password reset email:", error);
+        alert("Error sending password reset email, try again.")
       });
   }
   
-export  function updateUserProfile(name, photoURL) {
-    updateProfile(auth.currentUser, {
-      displayName: name,
-      photoURL: photoURL
-    }).then(() => {
-      console.log("User profile updated.");
-    }).catch((error) => {
-      console.error("Error updating profile:", error);
-    });
-  }
-
-export async function signInWithGoogle() {
-    try {
-      const result = await signInWithPopup(auth, provider);
-      
-      // User is signed in, return the UID
-      return result.user.uid;
-    } catch (error) {
-      console.error("Error during Google sign-in:", error);
-      
-      // Return false if sign-in fails
+export async function registerUserAndAddCell(email, password, cellNumber) {
+  try {
+    // Step 1: Create the user
+    const user = await createUserAndGetUid(email, password);
+    if (!user) {
+      console.log("Failed to create user.");
       return false;
     }
-}
 
-async function updateUserCellNumber(uid, cellNumber) {
-  try {
-    // Reference the user's document in the 'users' collection
-    const userRef = doc(db, "users",uid)
+    console.log("User created with UID:", user.uid);
 
-    // Update the user's document with the cell number
-    await updateDoc(userRef,{
-      cellNumber: cellNumber
-    })
-    console.log("Cell number updated successfully for user:", uid);
-    return true;
-  } catch (error) {
-    console.error("Error updating cell number for user:", uid, error);
-    return false; // Return false if the update fails
-  }
-}
+    // Step 2: Create the Firestore document and add cell number
+    
+    const savedData = await saveUserData(user.uid,email,cellNumber)
 
-export async function registerUserAndAddCell(email, password, cellNumber) {
-  const uid = await createUserAndGetUid(email, password);
-  if (!uid) {
-    console.log("Failed to create user.");
-    return false;
-  }
-
-  console.log("User created with UID:", uid);
-
-  // Retry checking for Firestore document creation
-  const maxRetries = 5;
-  const delay = 1000; // 1 second
-
-  for (let attempt = 0; attempt < maxRetries; attempt++) {
-    const userRef = doc(db, "users", uid)
-
-    const docSnapshot = await getDoc(userRef);
-    if (docSnapshot.exists) {
-      // Document created, update the cell number
-      const success = await updateUserCellNumber(uid, cellNumber);
-      if (success) {
-        console.log("User created and cell number updated successfully.");
-        return true;
-      } else {
-        console.log("User created, but failed to update cell number.");
-        return false;
-      }
+    if(savedData){
+      sendEmailVerification(user)
+      .then(() => {
+        console.log("Verification email sent.");
+        alert("Verification email sent, Please confirm your email with.")
+      })
+      .catch((error) => {
+        console.error("Error sending email verification:", error);
+      });
     }
     
-    // Wait before retrying
-    await new Promise(resolve => setTimeout(resolve, delay));
-  }
 
-  console.log("User document was not created in time.");
-  alert("User data was not created on time")
-  return false;
+    console.log("User document created and cell number added successfully.");
+    return true;
+  } catch (error) {
+    console.error("Error registering user and adding cell number:", error);
+    return false;
+  }
 }
 
-export async function signInWithGoogleAndAddCell(cellNumber) {
-  try {
-    const result = await signInWithPopup(auth, provider);
 
-    // User is signed in, get the UID
-    const uid = result.user.uid;
-    console.log("Google sign-in successful with UID:", uid);
-
-    // Retry checking for Firestore document creation
-    const maxRetries = 5;
-    const delay = 1000; // 1 second
-
-    for (let attempt = 0; attempt < maxRetries; attempt++) {
-      const docSnapshot = await db.collection("users").doc(uid).get();
-      if (docSnapshot.exists) {
-        // Document created, update the cell number
-        const success = await updateUserCellNumber(uid, cellNumber);
-        if (success) {
-          console.log("User signed in and cell number updated successfully.");
-          return true;
-        } else {
-          console.log("User signed in, but failed to update cell number.");
-          return false;
-        }
-      }
-      
-      // Wait before retrying
-      await new Promise(resolve => setTimeout(resolve, delay));
-    }
-
-    console.log("User document was not created in time.");
-    return false;
-
-  } catch (error) {
-    console.error("Error during Google sign-in:", error);
-
-    // Return false if sign-in fails
-    return false;
+async function saveUserData(uid,email,cellNumber){
+  const url = "https://us-central1-thatothemc.cloudfunctions.net/saveUser"
+  const data = {
+    uid,
+    email,
+    cellNumber
   }
+  try {
+    const response = await fetch(url,
+      {
+        method:"POST",
+        headers:{
+          "Content-Type":"application/json"
+        },
+        body:JSON.stringify(data)
+      }
+    )
+    if(!response.ok){
+      return false
+    }
+    return true
+  } catch (error) {
+    return false
+  }
+}
+
+export async function checkIfUserEmailVerified(user){
+  if(!user.emailVerified){
+    user.reload().then(() => {
+      if(!user.emailVerified){
+        sendEmailVerification(user).then(() => {
+          alert("Email verification has been sent, please verify before proceeding")
+        })
+        .catch(() => {
+          alert("couldnt sent email verification, try again")
+        })
+        return false
+      }
+      return true
+    })
+  }
+  return true
 }

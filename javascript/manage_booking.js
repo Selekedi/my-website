@@ -1,6 +1,6 @@
 import { collection, doc, getDoc} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import { db } from "./firebase.js";
-import { checkUserAuth } from "./auth.js";
+import { checkUserAuth, checkIfUserEmailVerified } from "./auth.js";
 import { formatPaymentValue } from "./utils.js";
 
 const bookingId = getQueryParam("bookingId")
@@ -162,15 +162,43 @@ function loadPayfastScript() {
     });
 }
 
-function confirmBooking(){
+async function confirmBooking(){
+    const {user,idToken} = await checkUserAuth()
+    if(!user){
+        return
+    }
+
+    const emailVerified = await checkIfUserEmailVerified(user)
+    if(!emailVerified){
+        return
+    }
+
     processPayment("500.00",bookingId,"confirm")
 }
 
-function payFullAmountOwing(amount){
+async function payFullAmountOwing(amount){
+    const {user,idToken} = await checkUserAuth()
+    if(!user){
+        return
+    }
+
+    const emailVerified = await checkIfUserEmailVerified(user)
+    if(!emailVerified){
+        return
+    }
     processPayment(amount.toString(),bookingId,"payAmountOwing")
 }
 
-function payFullPrice(amount){
+async function payFullPrice(amount){
+    const {user,idToken} = await checkUserAuth()
+    if(!user){
+        return
+    }
+
+    const emailVerified = await checkIfUserEmailVerified(user)
+    if(!emailVerified){
+        return
+    }
     processPayment(amount.toString(),bookingId,"payFullAmount")
 }
 

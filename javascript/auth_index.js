@@ -1,4 +1,4 @@
-import { checkUserAuth, loginUserWithEmail, signInWithGoogle, registerUserAndAddCell,signInWithGoogleAndAddCell } from "./auth.js";
+import { checkUserAuth, loginUserWithEmail, registerUserAndAddCell, resetPassword } from "./auth.js";
 import { initializeFromSessionStorage,updateSessionStorage } from "./utils.js";
 
 
@@ -9,7 +9,8 @@ const cellphoneInput = document.querySelector("input#phoneNumber")
 const authLink = document.getElementById("auth-link")
 const form = document.getElementById("form")
 const emailPasswordBtn = document.getElementById("emailRegisterButton")
-const googleBtn = document.getElementById("googleSignInButton")
+const forgotPasswordBtn = document.getElementById("forgot-password-btn")
+const forgotPasswordLink = document.getElementById("forgot-password")
 
 let signUp = initializeFromSessionStorage("signUp",false)
 function updateAuthScreen(){
@@ -19,14 +20,14 @@ function updateAuthScreen(){
         cellphoneLabel.style.display = "none"
         authLink.innerHTML = `<p id="auth-link">dont have an account? <a href="#" onclick="event.preventDefault(); handleToggle()" id="sign-up">Register Here</a></p>`
         emailPasswordBtn.textContent = "Sign in With Email"
-        googleBtn.textContent = "Sign in With Google"
+        forgotPasswordBtn.style.display = "block"
     }else {
         authHeader.textContent = "Sign Up"
         cellphoneInput.style.display = "block"
         cellphoneLabel.style.display = "block"
         authLink.innerHTML = `<p id="auth-link">Already have an account? <a href="#" onclick="event.preventDefault(); handleToggle()" id="sign-up">Sign In Here</a></p>`
         emailPasswordBtn.textContent = "Sign Up With Email"
-        googleBtn.textContent = "Sign Up With Google"
+        forgotPasswordBtn.style.display = "none"
     }
 }
 
@@ -72,29 +73,15 @@ emailPasswordBtn.onclick = async () => {
 
 }
 
-googleBtn.onclick = async () => {
-    if(!signUp){
-        let isSignedIn = await signInWithGoogle()
-        if(!isSignedIn){
-            alert("Couldnt Sign in")
-            return
-        }
-    }else {
-        const phoneNumber = document.getElementById("phoneNumber").value
-        if(!validatePhoneNumber(phoneNumber)){
-            alert("enter Valid Phone Number")
-            return
-        }
-        let isSignedUp = await signInWithGoogleAndAddCell(phoneNumber)
-        if(!isSignedUp){
-            alert("Couldnt Sign You Up")
-            return
-        }
+forgotPasswordLink.addEventListener("click", async e => {
+    e.preventDefault()
+    const emailValue = document.getElementById("email").value
+    if(!validateEmail(emailValue)){
+        alert("Enter Email")
+        return
     }
-    
-
-    handleRedirect()
-}
+    resetPassword(emailValue)
+})
 
 function handleRedirect(){
     const redirectUrl = sessionStorage.getItem("redirectAfterLogin")
