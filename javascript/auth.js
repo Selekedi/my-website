@@ -64,8 +64,8 @@ export  function logoutUser() {
       });
   }
 
-export  function resetPassword(email) {
-    sendPasswordResetEmail(auth, email)
+export  function resetPassword(email,actionSettings) {
+    sendPasswordResetEmail(auth, email,actionSettings)
       .then(() => {
         console.log("Password reset email sent!");
         alert("Password reset email sent!")
@@ -76,7 +76,7 @@ export  function resetPassword(email) {
       });
   }
   
-export async function registerUserAndAddCell(email, password, cellNumber) {
+export async function registerUserAndAddCell(email, password, cellNumber,actionSettings) {
   try {
     // Step 1: Create the user
     const user = await createUserAndGetUid(email, password);
@@ -92,7 +92,7 @@ export async function registerUserAndAddCell(email, password, cellNumber) {
     const savedData = await saveUserData(user.uid,email,cellNumber)
 
     if(savedData){
-      sendEmailVerification(user)
+      sendEmailVerification(user,actionSettings)
       .then(() => {
         console.log("Verification email sent.");
         alert("Verification email sent, Please confirm your email with.")
@@ -138,20 +138,20 @@ async function saveUserData(uid,email,cellNumber){
   }
 }
 
-export async function checkIfUserEmailVerified(user){
-  if(!user.emailVerified){
-    user.reload().then(() => {
-      if(!user.emailVerified){
-        sendEmailVerification(user).then(() => {
-          alert("Email verification has been sent, please verify before proceeding")
-        })
-        .catch(() => {
-          alert("couldnt sent email verification, try again")
-        })
-        return false
+export async function checkIfUserEmailVerified(user) {
+  if (!user.emailVerified) {
+    try {
+      await user.reload();
+      if (!user.emailVerified) {
+        return false; // Email not verified yet
       }
-      return true
-    })
+    } catch (error) {
+      return false; // Handle the error case
+    }
   }
-  return true
+  return true; // Email is verified
+}
+
+export async function sendVerificationEmail(user,actionSettings){
+  await sendEmailVerification(user,actionSettings)
 }

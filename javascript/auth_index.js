@@ -56,12 +56,20 @@ emailPasswordBtn.onclick = async () => {
             alert("Enter Valid Phone Number")
             return
         }
+        const actionCodeSettings = {
+            url: "https://selekedi.github.io/my-website/index.html", // Redirect back to the page where they initiated the verification
+            handleCodeInApp: true,
+          };
+          
 
-        let createdAccount =  await registerUserAndAddCell(emailValue,password,phoneNumber)
+        let createdAccount =  await registerUserAndAddCell(emailValue,password,phoneNumber,actionCodeSettings)
         if(!createdAccount){
             alert("Couldn't Create Acoount, Try Again")
             return
+        }else {
+            alert("An email verification has been sent to your email, Please verify")
         }
+
     }else {
         let isSignedIn = await loginUserWithEmail(emailValue,password)
         if(!isSignedIn){
@@ -80,7 +88,11 @@ forgotPasswordLink.addEventListener("click", async e => {
         alert("Enter Email")
         return
     }
-    resetPassword(emailValue)
+    const actionCodeSettings = {
+        url: window.location.href, // Redirect back to the page where they initiated the verification
+        handleCodeInApp: true,
+      };
+    resetPassword(emailValue,actionCodeSettings)
 })
 
 function handleRedirect(){

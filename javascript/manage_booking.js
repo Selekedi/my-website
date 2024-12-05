@@ -1,7 +1,11 @@
 import { collection, doc, getDoc} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import { db } from "./firebase.js";
-import { checkUserAuth, checkIfUserEmailVerified } from "./auth.js";
-import { formatPaymentValue } from "./utils.js";
+import { checkUserAuth, checkIfUserEmailVerified,sendVerificationEmail } from "./auth.js";
+import { formatPaymentValue, updateSessionStorage } from "./utils.js";
+
+let emailVerified
+
+const {user,idToken} = checkUserAuth()
 
 const bookingId = getQueryParam("bookingId")
 
@@ -11,10 +15,20 @@ const totalPriceCell = document.getElementById("total-price")
 const amountOwingCell = document.getElementById("amount-owing")
 const controlsContainer = document.getElementById("controls")
 const warningMessage = document.getElementById("warning")
+const emailVerification = document.getElementById("emailVer")
 
 const confirmBtn = `<button onclick="confirmBooking()" id="confirm-btn">Confirm Booking R500</button>`
 
 window.addEventListener("DOMContentLoaded", async e => {
+    if(!user){
+        sessionStorage.setItem("redirectAfterLogin",window.location.href)
+        window.location.href = "auth.html"
+        return
+    }
+    emailVerified = await checkIfUserEmailVerified(user)
+    if(!emailVerified){
+        emailVerification.innerHTML = `<button id= "email-ver-btn" onclick="sendVer()" >Resend Verification Email</button>`
+    }
     const bookingData = await getBookingDetails(bookingId)
     populateData(bookingData)
 })
@@ -163,45 +177,40 @@ function loadPayfastScript() {
 }
 
 async function confirmBooking(){
-    const {user,idToken} = await checkUserAuth()
-    if(!user){
-        return
-    }
-
-    const emailVerified = await checkIfUserEmailVerified(user)
     if(!emailVerified){
+        alert("verify email before you proceed.")
         return
     }
-
     processPayment("500.00",bookingId,"confirm")
 }
 
 async function payFullAmountOwing(amount){
-    const {user,idToken} = await checkUserAuth()
-    if(!user){
-        return
-    }
-
-    const emailVerified = await checkIfUserEmailVerified(user)
     if(!emailVerified){
+        alert("verify email before you proceed.")
         return
     }
     processPayment(amount.toString(),bookingId,"payAmountOwing")
 }
 
 async function payFullPrice(amount){
-    const {user,idToken} = await checkUserAuth()
-    if(!user){
-        return
-    }
-
-    const emailVerified = await checkIfUserEmailVerified(user)
     if(!emailVerified){
+        alert("verify email before you proceed.")
         return
     }
     processPayment(amount.toString(),bookingId,"payFullAmount")
 }
 
+function sendVer(){
+    const actionCodeSettings = {
+        url: window.location.href, // Redirect back to the page where they initiated the verification
+        handleCodeInApp: true,
+      };
+      
+    sendVerificationEmail(user,actionCodeSettings)
+    alert("verification email sent.")
+}
+
 window.confirmBooking = confirmBooking
 window.payFullAmountOwing = payFullAmountOwing
 window.payFullPrice = payFullPrice
+window.sendVer = sendVer
