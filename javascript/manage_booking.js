@@ -20,6 +20,7 @@ const emailVerification = document.getElementById("emailVer")
 const confirmBtn = `<button onclick="confirmBooking()" id="confirm-btn">Confirm Booking R500</button>`
 
 window.addEventListener("DOMContentLoaded", async e => {
+    console.log("lets go");
     
     if(!user){
         sessionStorage.setItem("redirectAfterLogin",window.location.href)
@@ -30,6 +31,8 @@ window.addEventListener("DOMContentLoaded", async e => {
     if(!emailVerified){
         emailVerification.innerHTML = `<button id= "email-ver-btn" onclick="sendVer()" >Resend Verification Email</button>`
     }
+    console.log("we are in here");
+    
     const bookingData = await getBookingDetails(bookingId)
     populateData(bookingData)
 })
