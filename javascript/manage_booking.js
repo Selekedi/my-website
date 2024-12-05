@@ -4,8 +4,8 @@ import { checkUserAuth, checkIfUserEmailVerified,sendVerificationEmail } from ".
 import { formatPaymentValue, updateSessionStorage } from "./utils.js";
 
 let emailVerified
+const {user,idToken} = await checkUserAuth()
 
-const {user,idToken} = checkUserAuth()
 
 const bookingId = getQueryParam("bookingId")
 
@@ -20,6 +20,7 @@ const emailVerification = document.getElementById("emailVer")
 const confirmBtn = `<button onclick="confirmBooking()" id="confirm-btn">Confirm Booking R500</button>`
 
 window.addEventListener("DOMContentLoaded", async e => {
+    
     if(!user){
         sessionStorage.setItem("redirectAfterLogin",window.location.href)
         window.location.href = "auth.html"
