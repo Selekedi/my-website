@@ -3,10 +3,10 @@ import { db } from "./firebase.js";
 import { checkUserAuth, checkIfUserEmailVerified,sendVerificationEmail } from "./auth.js";
 import { formatPaymentValue, updateSessionStorage } from "./utils.js";
 
-let emailVerified
+let emailVerified,userObject,idTokenObject
 console.log("check");
 
-const {user,idToken} = await checkUserAuth()
+
 
 
 const bookingId = getQueryParam("bookingId")
@@ -23,7 +23,9 @@ const confirmBtn = `<button onclick="confirmBooking()" id="confirm-btn">Confirm 
 
 window.addEventListener("DOMContentLoaded", async e => {
     console.log("lets go");
-    
+    const {user,idToken} = await checkUserAuth()
+    userObject = user
+    idTokenObject = idToken
     if(!user){
         sessionStorage.setItem("redirectAfterLogin",window.location.href)
         window.location.href = "auth.html"
@@ -212,7 +214,7 @@ function sendVer(){
         handleCodeInApp: true,
       };
       
-    sendVerificationEmail(user,actionCodeSettings)
+    sendVerificationEmail(userObject,actionCodeSettings)
     alert("verification email sent.")
 }
 
