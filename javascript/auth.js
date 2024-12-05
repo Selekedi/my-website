@@ -153,5 +153,10 @@ export async function checkIfUserEmailVerified(user) {
 }
 
 export async function sendVerificationEmail(user,actionSettings){
-  await sendEmailVerification(user,actionSettings)
+  try{
+    await sendEmailVerification(user,actionSettings)
+  }catch (error){
+    console.error(error)
+  }
+  
 }
