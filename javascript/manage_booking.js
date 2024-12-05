@@ -4,6 +4,8 @@ import { checkUserAuth, checkIfUserEmailVerified,sendVerificationEmail } from ".
 import { formatPaymentValue, updateSessionStorage } from "./utils.js";
 
 let emailVerified
+console.log("check");
+
 const {user,idToken} = await checkUserAuth()
 
 
