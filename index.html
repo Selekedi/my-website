@@ -15,14 +15,15 @@
             </a>
         </div>
         <nav>
-            <ul>
+            <ul class="navlist">
                 <li data-id="hero">Home</li>
-                <li data-id="book" style="display: none;">Book</li>
                 <li data-id="about-us">About</li>
                 <li data-id="services">Services</li>
                 <li data-id="portfolio">Portfolio</li>
                 <li data-id="contact-us">Contact Us</li>
+                <li data-id="book">Book</li>
             </ul>
+            <ul class="utilities"></ul>
         </nav>
         <div class="toggle">
             <button class="toggle-btn">
@@ -56,9 +57,7 @@
                     <p class="animated-paragraph">
                         Get You and your loved ones<br>
                         a <span class="trait">funny</span>, <span class="trait">entertaining</span>, <span class="trait">neat</span>,<br>
-                        <span class="trait">energetic</span> and <span class="trait">sensible</span> MC for just<br>
-                        <span class="price">R1500.00</span> per day and get<br>
-                        an extra day for <span class="free">free</span>.
+                        <span class="trait">energetic</span> and <span class="trait">sensible</span> MC for an Affordable price<br>
                     </p>
                     <div class="cta-container">
                         <button onclick="{
@@ -68,7 +67,9 @@
                             })
                             
                         }">Contact Thato</button>
-                        <button style="display: none;"><span>Book Now</span></button>
+                        <button onclick="{
+                            window.location.href = 'booking.html'
+                        }"><span>Book Now</span></button>
                     </div>
                     <div class="social-links">
                         <p>follow us on : </p>
@@ -245,6 +246,7 @@
         &copy; <span class="year"></span> thato the mc, all rights reserved.
     </footer>
     <script src="./javascript/index.js" type="module"></script>
-    <script async type="module" src="./javascript/index_all.js"></script>
+    <script type="module" src="./javascript/index_all.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/jwt-decode@3.1.2/build/jwt-decode.min.js"></script>
 </body>
 </html>

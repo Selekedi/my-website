@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app.js";
-import { getFirestore, collection , addDoc} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { initializeFirestore, enableIndexedDbPersistence} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 import { initializeAppCheck, ReCaptchaV3Provider } from "https://www.gstatic.com/firebasejs/10.13.0/firebase-app-check.js";
 
@@ -14,9 +14,22 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-export const db = getFirestore(app)
+export const db = initializeFirestore(app, {
+    cacheSizeBytes:10 * 1048576,
+    experimentalTabSynchronization: true
+})
 const appCheck = initializeAppCheck(app, {
     provider: new ReCaptchaV3Provider('6LfxEmYqAAAAAPpCrqDnHETDY2h56wEsEtLu67qX'),
     isTokenAutoRefreshEnabled: true
 })
 export const auth = getAuth(app);
+
+enableIndexedDbPersistence(db)
+  .catch((err) => {
+    if (err.code == 'failed-precondition') {
+      console.log("Persistence failed due to multiple tabs open");
+    } else if (err.code == 'unimplemented') {
+      console.log("Persistence is not available in this environment");
+    }
+  });
+

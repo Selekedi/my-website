@@ -1,4 +1,4 @@
-import { createUserWithEmailAndPassword, signInWithEmailAndPassword,sendPasswordResetEmail, onAuthStateChanged, sendEmailVerification } from  "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
+import { createUserWithEmailAndPassword, signInWithEmailAndPassword,sendPasswordResetEmail, onAuthStateChanged, sendEmailVerification, signOut } from  "https://www.gstatic.com/firebasejs/10.13.0/firebase-auth.js";
 import { doc, setDoc} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 
 import { auth,db } from "./firebase.js";

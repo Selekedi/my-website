@@ -1,12 +1,10 @@
-import { collection, doc, getDoc} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
+import { onSnapshot, doc} from "https://www.gstatic.com/firebasejs/10.13.0/firebase-firestore.js";
 import { db } from "./firebase.js";
 import { checkUserAuth, checkIfUserEmailVerified,sendVerificationEmail } from "./auth.js";
 import { formatPaymentValue, updateSessionStorage } from "./utils.js";
 
 let emailVerified,userObject,idTokenObject
-console.log("check");
-
-
+let unsubscribeManageBooking = null;
 
 
 const bookingId = getQueryParam("bookingId")
@@ -18,27 +16,34 @@ const amountOwingCell = document.getElementById("amount-owing")
 const controlsContainer = document.getElementById("controls")
 const warningMessage = document.getElementById("warning")
 const emailVerification = document.getElementById("emailVer")
+const cancelModal = document.getElementById("cancel-modal")
 
 const confirmBtn = `<button onclick="confirmBooking()" id="confirm-btn">Confirm Booking R500</button>`
 
 window.addEventListener("DOMContentLoaded", async e => {
     console.log("lets go");
-    const {user,idToken} = await checkUserAuth()
-    userObject = user
-    idTokenObject = idToken
-    if(!user){
+    const Auth = await checkUserAuth()
+    
+    if(!Auth){
         sessionStorage.setItem("redirectAfterLogin",window.location.href)
         window.location.href = "auth.html"
         return
     }
+
+    const {user,idToken} = Auth
+    userObject = user
+    idTokenObject = idToken
     emailVerified = await checkIfUserEmailVerified(user)
     if(!emailVerified){
         emailVerification.innerHTML = `<button id= "email-ver-btn" onclick="sendVer()" >Resend Verification Email</button>`
     }
     console.log("we are in here");
     
-    const bookingData = await getBookingDetails(bookingId)
-    populateData(bookingData)
+    loadManageBookingPage(bookingId)
+})
+
+window.addEventListener("beforeunload", e => {
+    leaveManageBookingPage()
 })
 
 function getPayFullAmountOwingBtn(AmountOwing){
@@ -46,34 +51,14 @@ function getPayFullAmountOwingBtn(AmountOwing){
 }
 
 function getCancelBtn(bookingId){
-    return `<button id="cancel-btn" onclick="cancelBooking(${bookingId})">Cancel Booking</button>`
+    return `<button id="cancel-btn" onclick="openCancelModal()">Cancel Booking</button>`
 }
 
 function getPayFullPriceBtn(price){
     return `<button id="pay-full-price" onclick="payFullPrice(${price})" >Pay Full Price R${price}</button>`
 }
 
-async function getBookingDetails(bookingId) {
-    try {
-      // Reference to the specific booking document
-      const bookingRef = doc(db, 'bookings', bookingId);
-      
-      // Get the document data
-      const bookingDoc = await getDoc(bookingRef);
-      
-      if (bookingDoc.exists()) {
-        const bookingData = bookingDoc.data();
-        console.log('Booking details:', bookingData);
-        return bookingData;
-      } else {
-        console.log('No such booking found');
-        return null;
-      }
-    } catch (error) {
-      console.error('Error getting booking details:', error);
-      return null;
-    }
-  }
+
 
   function populateData(bookingData){
     dateCell.innerText = bookingData.date;
@@ -92,6 +77,8 @@ async function getBookingDetails(bookingId) {
     }else if(!bookingData.confirmable){
         warningMessage.textContent = "Sorry, Someone has already secured this date"
         controlsContainer.innerHTML = cancelBtn
+    }else if(!bookingData.outstanding){
+        controlsContainer.innerHTML = cancelBtn 
     }
   }
 
@@ -218,7 +205,93 @@ function sendVer(){
     alert("verification email sent.")
 }
 
+function loadManageBookingPage(bookingId) {
+    // Clean up any previous listener
+    if (unsubscribeManageBooking) {
+      unsubscribeManageBooking();
+    }
+  
+    const bookingRef = doc(db, "bookings", bookingId);
+  
+    // Set up the real-time listener
+    unsubscribeManageBooking = onSnapshot(bookingRef, (doc) => {
+      if (doc.exists()) {
+        console.log("Booking details:", doc.data());
+        // Update the UI with the booking details
+        populateData(doc.data())
+      } else {
+        console.log("No such booking!");
+      }
+    });
+  }
+
+  async function cancelBooking(bookingId,idToken){
+    const dataToSend = {
+        data:{bookingId}
+    }
+    const url = "https://us-central1-thatothemc.cloudfunctions.net/cancelBooking"
+    
+    try {
+        const response = await fetch(url,{
+            method: "POST",
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization": `Bearer ${idToken}`
+            },
+            body:JSON.stringify(dataToSend)
+        })
+
+        if(response.ok){
+            const data = await response.json()
+            console.log(data.result);
+            
+            return data.result.success
+        }else {
+            alert("couldnt delete try again");
+            return false;
+        }
+    } catch (error) {
+        return false
+    }
+  }
+
+async  function cancelBtn(){
+    try {
+        const deleted = await cancelBooking(bookingId,idTokenObject)
+        console.log(deleted);
+        
+        if(deleted){
+         alert("booking cancelled")
+         cancelModal.classList.remove("show")
+         window.location.href = "/manage_bookings.html"
+        }else{
+         alert("failed to cancel booking, try again")
+        }
+     } catch (error) {
+         
+     }
+  }
+
+    function noCancelBtn(){
+        cancelModal.classList.remove("show")
+    }
+
+  function leaveManageBookingPage() {
+    if (unsubscribeManageBooking) {
+      unsubscribeManageBooking();
+      console.log("Stopped listening to the booking");
+    }
+  }
+
+function openCancelModal(){
+    cancelModal.classList.add("show")
+}
+
 window.confirmBooking = confirmBooking
 window.payFullAmountOwing = payFullAmountOwing
 window.payFullPrice = payFullPrice
 window.sendVer = sendVer
+window.openCancelModal = openCancelModal
+window.cancelBtn = cancelBtn
+window.noCancelBtn = noCancelBtn
+

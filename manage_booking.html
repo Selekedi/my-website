@@ -42,6 +42,7 @@
             flex-direction: column;
             padding: 64px;
             box-shadow: 0 0 1px #555;
+            position: relative;
         }
 
         .booking-container h1 {
@@ -88,11 +89,67 @@
             color: #fff;
         }
 
+        #cancel-modal {
+            position: absolute;
+            top: 50%;
+            background-color: #fff;
+            z-index: 100;
+            box-shadow: 0 0 1px #555;
+            padding: 16px;
+            transform: scale(0);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        #cancel-modal.show {
+            transform: scale(1);
+        }
+
+        #cancel-modal > p {
+            margin-bottom:24px ;
+        }
+
+        #cancel-modal > .controls {
+            display: flex;
+            justify-content: flex-end;
+            gap: 8px;
+        }
+        #cancel-modal > .controls > button{
+            padding: 4px 8px;
+            background-color: #fff;
+            box-shadow: 0 0 1px #555;
+            border: 0;
+            outline: 0;
+            border-radius: 8px;
+        }
+
+        #cancel-modal > .controls button.yes{
+            background-color: #000;
+            color: #fff;
+        }
 
         @media (max-width:800px) {
             header {
                 padding: 8px 5vw;
             }        
+        }
+
+        @media (max-height:700px){
+            header {
+                background-color: #fff;
+            }
+
+            main {
+                align-items: normal;
+                padding: 128px 0;
+                height: fit-content;
+            }
+        }
+
+        @media (max-width:500px){
+            main section.booking-container {
+                box-shadow: 0 0 0 #fff ;
+                padding: 0;
+            }
         }
     </style>
 </head>
@@ -105,6 +162,13 @@
         </div>
     </header>
     <main>
+        <div id="cancel-modal">
+            <p>Are you sure you want to cancel the booking?</p>
+            <div class="controls">
+                <button class="modal-btn no" onclick="noCancelBtn()">No</button>
+                <button class="modal-btn yes" onclick="cancelBtn()">Yes, Delete</button>
+            </div>
+        </div>
         <section class="booking-container">
             <h1>Manage Booking</h1>
             <div id="emailVer"></div>

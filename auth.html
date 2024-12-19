@@ -77,22 +77,32 @@
             border-radius: 8px;
         }
 
-        form .socials {
-            display: flex;
-            justify-content: center;
-            margin: 8px 0;
-        }
-
-        form .socials button {
-            font-size: 21px;
-            padding: 8px;
-
-            margin: 0 8px;
-        }
         @media (max-width:800px) {
             header {
                 padding: 8px 5vw;
-            }        
+            }
+            
+            header .logo a {
+                height: 50px;
+                overflow: hidden;
+            }
+
+            header .logo a img {
+                height: 65px;
+                width: 100px;
+            }
+        }
+
+        @media (max-height:580px){
+            header {
+                background-color: #fff;
+            }
+
+            main {
+                align-items: normal;
+                padding: 128px 0;
+                height: fit-content;
+            }
         }
 
         @media (max-width:650px) {

@@ -1,4 +1,6 @@
 import { containsClass } from "./utils.js"
+import { logoutUser } from "./auth.js"
+
 const footerDate = document.querySelector("footer .year")
 const navLinks = document.querySelectorAll("nav ul li")
 const chatMneuIncons = document.querySelectorAll(".chat-menu .menu .svg")
@@ -9,6 +11,8 @@ const navUl = nav.querySelector("ul")
 const chatMenu = document.querySelector('.chat-menu .menu')
 const chatToggle = chatMenu.querySelector(".toggle")
 const chatMenuBtns = chatMenu.querySelectorAll("li")
+const headerUtility = document.querySelector("header nav ul.utilities")
+const headerUtilityLinks = document.querySelectorAll("header nav ul.utilities li")
 
 
 
@@ -18,8 +22,11 @@ footerDate.innerHTML = date.getFullYear()
 // LOGIC FOR THE NAV LINKS
 navLinks.forEach(link => {
     link.addEventListener("click", () => {
+        console.log("clicked");
+        
+        const relatedToBookings = ["book","my-bookings"]
         const linkId = link.dataset.id
-        if(linkId !== "book"){
+        if(!relatedToBookings.includes(linkId)){
             let section =  document.getElementById(linkId)
             let position = section.offsetTop
             console.log(section);
@@ -28,8 +35,15 @@ navLinks.forEach(link => {
                 top:position
             })
 
+
             
             
+        }
+        else if(linkId == "book"){
+            window.location.href = "booking.html"
+        }
+        else {
+            window.location.href = "manage_bookings.html"
         }
         if(window.innerWidth <= 850){
             navToggle.classList.remove("opened")
@@ -40,14 +54,38 @@ navLinks.forEach(link => {
     })
 })
 
+headerUtilityLinks.forEach(link => {
+    link.addEventListener("click", async e => {
+        const linkId = e.currentTarget.dataset.id
+        switch(linkId){
+            case "sign-in":
+                window.location.href = "auth.html"
+            break
+            case "log-out":
+                logoutUser()
+                window.location.reload()
+            break
+            case "dash":
+                window.location.href = "dashboard.html"
+            break
+            default:
+        }
+        if(window.innerWidth <= 850){
+            navToggle.classList.remove("opened")
+            nav.style.height = 0
+        }
+    })
+})
+
 //LOGIC FOR THE NAV TOGGLE
 
 navToggle.addEventListener("click", e => {
     e.currentTarget.classList.toggle("opened")
     let navUlHeight = navUl.getBoundingClientRect().height
+    let navUtilityHeigh = headerUtility.getBoundingClientRect().height
     let navHeight = nav.getBoundingClientRect().height
     if(navHeight === 0){
-        nav.style.height = `${navUlHeight}px`
+        nav.style.height = `${navUlHeight + navUtilityHeigh}px`
     }else {
         nav.style.height = '0px'
     }
@@ -111,7 +149,6 @@ function updateFixedElementColors(){
     let verticalPosition = window.scrollY
     const aboutSection = document.getElementById("about-us")
     const aboutUsTop = aboutSection.offsetTop
-    console.log((verticalPosition));
     
     if(verticalPosition >= 100){
         updateChatMenuIcons('#000')

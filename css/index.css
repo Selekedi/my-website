@@ -43,7 +43,10 @@ header .logo > a img {
 
 header nav {
     --nav-bg:#444;
+    display: flex;
+    gap: 32px;
 }
+
 
 header nav ul li {
     list-style-type: none;
@@ -144,7 +147,7 @@ header .toggle .toggle-btn.opened .bar::after {
     }
 }
 
-@media (max-width:850px) {
+@media (max-width:1440px) {
     header nav {
         position: absolute;
         top: 100%;
@@ -157,8 +160,10 @@ header .toggle .toggle-btn.opened .bar::after {
         overflow: hidden;
         transition: height 0.2s ease-out;
         background-color: var(--nav-bg);
+        flex-direction: column;
+        gap: 0px;
     }
-
+    
     header nav ul li {
         display: block;
         margin: 16px;
