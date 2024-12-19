@@ -263,7 +263,7 @@ async  function cancelBtn(){
         if(deleted){
          alert("booking cancelled")
          cancelModal.classList.remove("show")
-         window.location.href = "/manage_bookings.html"
+         window.location.href = "manage_bookings.html"
         }else{
          alert("failed to cancel booking, try again")
         }

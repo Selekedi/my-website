@@ -3,29 +3,6 @@ import { initMap, getLocation } from "./map.js"
 import { auth } from "./firebase.js"
 
 
-function isTokenExpired(token) {
-  try {
-    // Decode the token
-    const decoded = jwt_decode(token);
-
-    // Get the current time in seconds
-    const currentTime = Math.floor(Date.now() / 1000);
-
-    // Check if the token has an expiration time and if it is expired
-    if (decoded.exp && currentTime >= decoded.exp) {
-      return true; // Token is expired
-    }
-
-    return false; // Token is not expired
-  } catch (error) {
-    console.error("Invalid token or decoding error:", error);
-    return true; // Treat invalid tokens as expired
-  }
-}
-
-
-
-
 const form =  document.getElementById("form")
 const date = document.getElementById("date")
 const typeOfEvent = document.getElementById("type")
@@ -88,10 +65,7 @@ form.addEventListener("submit",async e => {
         return
     }
     const {user,idToken} = Auth
-    if(isTokenExpired(idToken)) {
-        console.log("Token Expired");
-        return
-    }
+    
     const bookingData = await createBooking(dateValue,typeOfEventValue,userLoc,idToken)
     const bookingId = bookingData.bookingId
     window.location.href = `manage_booking.html?bookingId=${bookingId}`
