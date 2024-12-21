@@ -67,7 +67,7 @@ function getPayFullPriceBtn(price){
     amountOwingCell.innerText = formatPaymentValue(parseFloat(bookingData.totalPrice) - parseFloat(bookingData.amount_paid))
     const cancelBtn = getCancelBtn(bookingId)
 
-    if(!bookingData.outstanding){
+    if(!bookingData.outstanding && !bookingData.confirmed){
         controlsContainer.innerHTML = cancelBtn    
     }else if(!bookingData.confirmable) {
         warningMessage.textContent = "Sorry, Someone has already secured this date"
