@@ -67,18 +67,17 @@ function getPayFullPriceBtn(price){
     amountOwingCell.innerText = formatPaymentValue(parseFloat(bookingData.totalPrice) - parseFloat(bookingData.amount_paid))
     const cancelBtn = getCancelBtn(bookingId)
 
-    if(!bookingData.confirmed && bookingData.confirmable){
-
-        const payFullPriceBtn = getPayFullPriceBtn(formatPaymentValue(bookingData.totalPrice))
-        controlsContainer.innerHTML = confirmBtn + payFullPriceBtn + cancelBtn
-    }else if(bookingData.confirmed) {
+    if(!bookingData.outstanding){
+        controlsContainer.innerHTML = cancelBtn    
+    }else if(!bookingData.confirmable) {
+        warningMessage.textContent = "Sorry, Someone has already secured this date"
+        controlsContainer.innerHTML = cancelBtn     
+    }else if(bookingData.confirmed){
         const payFullAmountBtn = getPayFullAmountOwingBtn(formatPaymentValue(parseFloat(bookingData.totalPrice) - parseFloat(bookingData.amount_paid)))
         controlsContainer.innerHTML = payFullAmountBtn + cancelBtn
-    }else if(!bookingData.confirmable){
-        warningMessage.textContent = "Sorry, Someone has already secured this date"
-        controlsContainer.innerHTML = cancelBtn
-    }else if(!bookingData.outstanding){
-        controlsContainer.innerHTML = cancelBtn 
+    }else {
+        const payFullPriceBtn = getPayFullPriceBtn(formatPaymentValue(bookingData.totalPrice))
+        controlsContainer.innerHTML = confirmBtn + payFullPriceBtn + cancelBtn
     }
   }
 
