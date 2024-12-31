@@ -1,29 +1,48 @@
 import { checkUserAuth } from "./auth.js"
 import { initMap, getLocation } from "./map.js"
 import { auth } from "./firebase.js"
+import { initializeFromSessionStorage, updateSessionStorage } from "./utils.js"
 
 
 const form =  document.getElementById("form")
 const date = document.getElementById("date")
 const typeOfEvent = document.getElementById("type")
 
+let dateFromStorage = initializeFromSessionStorage("date",null)
+let typeOfEventFromStorage = initializeFromSessionStorage("type",null)
+let coords = initializeFromSessionStorage("coords",null)
+
+if(dateFromStorage){
+    date.value = dateFromStorage
+}
+
+if(typeOfEventFromStorage){
+    typeOfEvent.value = typeOfEventFromStorage
+}
+
+
 const mapDiv = document.getElementById("mapDiv")
 const autoCompleteInput = document.getElementById("autoComplete")
 
 
 window.addEventListener("DOMContentLoaded", async () => {
-    try {
-        // Fetch the user's location (assumed to be an async function)
-        const userLocation = await fetchUserLocation(); // Wait for the location to be fetched
-        console.log(userLocation);
-        
-
-        // Initialize the map with the fetched user location
-        initMap(mapDiv, autoCompleteInput, userLocation);
-    } catch (error) {
-        console.error("Error fetching user location:", error);
-        initMap(mapDiv, autoCompleteInput, null);
+    if(coords){
+        initMap(mapDiv,autoCompleteInput,coords)
+    }else {
+        try {
+            // Fetch the user's location (assumed to be an async function)
+            const userLocation = await fetchUserLocation(); // Wait for the location to be fetched
+            console.log(userLocation);
+            
+    
+            // Initialize the map with the fetched user location
+            initMap(mapDiv, autoCompleteInput, userLocation);
+        } catch (error) {
+            console.error("Error fetching user location:", error);
+            initMap(mapDiv, autoCompleteInput, null);
+        }
     }
+    
 });
 
 
@@ -43,11 +62,16 @@ form.addEventListener("submit",async e => {
         return
     }
 
+    dateFromStorage = updateSessionStorage("date",dateValue)
+
     let typeOfEventValue = typeOfEvent.value
     if(typeOfEventValue === ""){
         alert("enter type of event")
         return
     }
+
+    typeOfEventFromStorage = updateSessionStorage("type",typeOfEventValue)
+    coords = updateSessionStorage("coords",userLoc)
 
     let availibility = await checkDateAvailability(dateValue)
     console.log(availibility.available);
