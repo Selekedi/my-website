@@ -7,6 +7,7 @@ import { initializeFromSessionStorage, updateSessionStorage } from "./utils.js"
 const form =  document.getElementById("form")
 const date = document.getElementById("date")
 const typeOfEvent = document.getElementById("type")
+const loaderContainer = document.querySelector(".loader-container")
 
 let dateFromStorage = initializeFromSessionStorage("date",null)
 let typeOfEventFromStorage = initializeFromSessionStorage("type",null)
@@ -30,6 +31,7 @@ window.addEventListener("DOMContentLoaded", async () => {
         initMap(mapDiv,autoCompleteInput,coords)
     }else {
         try {
+            loaderContainer.classList.add("show")
             // Fetch the user's location (assumed to be an async function)
             const userLocation = await fetchUserLocation(); // Wait for the location to be fetched
             console.log(userLocation);
@@ -40,6 +42,8 @@ window.addEventListener("DOMContentLoaded", async () => {
         } catch (error) {
             console.error("Error fetching user location:", error);
             initMap(mapDiv, autoCompleteInput, null);
+        } finally {
+            loaderContainer.classList.remove("show")
         }
     }
     
@@ -50,6 +54,7 @@ window.addEventListener("DOMContentLoaded", async () => {
 
 form.addEventListener("submit",async e => {
     e.preventDefault()
+    loaderContainer.classList.add("show")
     let dateValue = date.value
     let newDate = new Date(dateValue)
     let currentDate = new Date()
@@ -59,6 +64,7 @@ form.addEventListener("submit",async e => {
         
     if(isNaN(newDate.getTime()) ||currentDate.getTime() >= newDate.getTime()  ){
         alert("invalid date, Enter a new date")
+        loaderContainer.classList.remove("show")
         return
     }
 
@@ -67,6 +73,7 @@ form.addEventListener("submit",async e => {
     let typeOfEventValue = typeOfEvent.value
     if(typeOfEventValue === ""){
         alert("enter type of event")
+        loaderContainer.classList.remove("show")
         return
     }
 
@@ -79,6 +86,7 @@ form.addEventListener("submit",async e => {
 
     if(!availibility.available){
         alert("Sorry, the date has already been booked")
+        loaderContainer.classList.remove("show")
         return
     }
 
@@ -86,12 +94,14 @@ form.addEventListener("submit",async e => {
     if(!Auth){
         sessionStorage.setItem("redirectAfterLogin","booking.html")
         window.location.href = "auth.html"
+        loaderContainer.classList.remove("show")
         return
     }
     const {user,idToken} = Auth
     
     const bookingData = await createBooking(dateValue,typeOfEventValue,userLoc,idToken)
     const bookingId = bookingData.bookingId
+    loaderContainer.classList.remove("show")
     window.location.href = `manage_booking.html?bookingId=${bookingId}`
 
 

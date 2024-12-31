@@ -11,6 +11,7 @@ const form = document.getElementById("form")
 const emailPasswordBtn = document.getElementById("emailRegisterButton")
 const forgotPasswordBtn = document.getElementById("forgot-password-btn")
 const forgotPasswordLink = document.getElementById("forgot-password")
+const loaderContainer = document.querySelector(".loader-container")
 
 let signUp = initializeFromSessionStorage("signUp",false)
 function updateAuthScreen(){
@@ -39,7 +40,7 @@ window.handleToggle = handleToggle
 updateAuthScreen()
 
 emailPasswordBtn.onclick = async () => {
-    
+    loaderContainer.classList.add("show")
     let emailValue = document.getElementById("email").value
     let password = document.getElementById("password").value
     let phoneNumber = document.getElementById("phoneNumber").value
@@ -54,6 +55,7 @@ emailPasswordBtn.onclick = async () => {
     if(signUp){
         if(!validatePhoneNumber(phoneNumber)){
             alert("Enter Valid Phone Number")
+            loaderContainer.classList.remove("show")
             return
         }
         const actionCodeSettings = {
@@ -65,6 +67,7 @@ emailPasswordBtn.onclick = async () => {
         let createdAccount =  await registerUserAndAddCell(emailValue,password,phoneNumber,actionCodeSettings)
         if(!createdAccount){
             alert("Couldn't Create Acoount, Try Again")
+            loaderContainer.classList.remove("show")
             return
         }else {
             alert("An email verification has been sent to your email, Please verify")
@@ -74,18 +77,22 @@ emailPasswordBtn.onclick = async () => {
         let isSignedIn = await loginUserWithEmail(emailValue,password)
         if(!isSignedIn){
             alert("Couldnt Sign In, Try Again")
+            loaderContainer.classList.remove("show")
             return
         }
     }
+    loaderContainer.classList.remove("show")
     handleRedirect()
 
 }
 
 forgotPasswordLink.addEventListener("click", async e => {
     e.preventDefault()
+    loaderContainer.classList.add("show")
     const emailValue = document.getElementById("email").value
     if(!validateEmail(emailValue)){
         alert("Enter Email")
+        loaderContainer.classList.remove("show")
         return
     }
     const actionCodeSettings = {
@@ -93,6 +100,7 @@ forgotPasswordLink.addEventListener("click", async e => {
         handleCodeInApp: true,
       };
     resetPassword(emailValue,actionCodeSettings)
+    loaderContainer.classList.remove("show")
 })
 
 function handleRedirect(){

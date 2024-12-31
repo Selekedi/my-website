@@ -17,6 +17,7 @@ const controlsContainer = document.getElementById("controls")
 const warningMessage = document.getElementById("warning")
 const emailVerification = document.getElementById("emailVer")
 const cancelModal = document.getElementById("cancel-modal")
+const loaderContainer = document.querySelector(".loader-container")
 
 const confirmBtn = `<button onclick="confirmBooking()" id="confirm-btn">Confirm Booking R500</button>`
 
@@ -121,7 +122,9 @@ try {
 
 // Use the identifier somewhere else in your code
 async function processPayment(amount,bookingId,typeOfPayment) {
+    loaderContainer.classList.add("show")
     const identifier = await getPaymentIdentifier(amount,bookingId,typeOfPayment);
+    loaderContainer.classList.remove("show")
     
     if (identifier) {
         // Use the identifier where needed
@@ -231,6 +234,7 @@ function loadManageBookingPage(bookingId) {
     const url = "https://us-central1-thatothemc.cloudfunctions.net/cancelBooking"
     
     try {
+        loaderContainer.classList.add("show")
         const response = await fetch(url,{
             method: "POST",
             headers:{
@@ -251,6 +255,8 @@ function loadManageBookingPage(bookingId) {
         }
     } catch (error) {
         return false
+    }finally {
+        loaderContainer.classList.remove("show")
     }
   }
 
