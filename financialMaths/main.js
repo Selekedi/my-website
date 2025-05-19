@@ -260,7 +260,7 @@ function populateForm(category,method){
                     }
                     inputs.appendChild(submitButton)
                 break
-                case "balance after k year":
+                case "balance after k years":
                     inputs.append(presentValue,payments,periodsPerYear,Kyears)
                     submitButton.onclick = () => {
                         const PV= getValue(presentValue)
