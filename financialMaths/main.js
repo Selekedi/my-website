@@ -118,7 +118,7 @@ function populateForm(category,method){
                     inputs.appendChild(submitButton)
                 break
                 case "no of years":
-                    inputs.appendChild(presentValue,futureValue,rate)
+                    inputs.append(presentValue,futureValue,rate)
                     submitButton.onclick = () => {
                         const PV = getValue(presentValue)
                         const FV = getValue(futureValue)
