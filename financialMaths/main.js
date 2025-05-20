@@ -255,7 +255,7 @@ function populateForm(category,method){
                         const r = getValue(rate)
                         const ppy = getValue(periodsPerYear)
                         const n = getValue(noOfYears)
-                        const figure = FinanceMaths.Amortisation.getPayments(FV,r/100,ppy,n)
+                        const figure = FinanceMaths.Amortisation.getPayments(PV,r/100,ppy,n)
                         answerP.textContent = getAnswer("amount",figure)
                     }
                     inputs.appendChild(submitButton)
@@ -268,7 +268,7 @@ function populateForm(category,method){
                         const r = getValue(rate)
                         const ppy = getValue(periodsPerYear)
                         const KY = getValue(Kyears)
-                        const figure = FinanceMaths.Amortisation.BalanceAfterKPayments(FV,PM,r/100,ppy,KY)
+                        const figure = FinanceMaths.Amortisation.BalanceAfterKPayments(PV,PM,r/100,ppy,KY)
                         answerP.textContent = getAnswer("amount",figure)
                     }
                     inputs.appendChild(submitButton)
