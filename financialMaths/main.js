@@ -187,7 +187,7 @@ function populateForm(category,method){
                 case "future value":
                     inputs.append(payments,rate,periodsPerYear,noOfYears)
                     submitButton.onclick = () => {
-                        const PM = getValue(payments0)
+                        const PM = getValue(payments)
                         const r = getValue(rate)
                         const ppy = getValue(periodsPerYear)
                         const n = getValue(noOfYears)
