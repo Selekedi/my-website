@@ -71,7 +71,7 @@ class FinanceMaths{
         
         static getNoOfYears(futureValue,payments,rate,periodsPerYear){
             const i = rate/periodsPerYear
-            return Math.log((futureValue * rate)/payments + 1)/Math.log(1 + i)
+            return (Math.log((futureValue * rate)/payments + 1)/Math.log(1 + i))/periodsPerYear
         }
 
         static getPresentValue(payments,rate,periodsPerYear,noOfYears){
