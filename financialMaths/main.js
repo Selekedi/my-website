@@ -163,7 +163,7 @@ function populateForm(category,method){
                         const FV = getValue(futureValue)
                         const ppy = getValue(periodsPerYear)
                         const n = getValue(noOfYears)
-                        const figure = FinanceMaths.CompoundInterest.getRate(PV,FV,ppy,n)
+                        const figure = FinanceMaths.CompoundInterest.getRate(FV,PV,ppy,n)
                         answerP.textContent = getAnswer("percent",figure * 100)
                     }
                     inputs.appendChild(submitButton)
